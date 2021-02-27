@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  *
- * @author SpencerBucknam1
+ * @author SpencerBucknam123456
  */
 public class Character {
     static int ID=0;
