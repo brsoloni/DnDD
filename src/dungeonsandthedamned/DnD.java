@@ -21,9 +21,20 @@ import javafx.scene.paint.Color;
 
 /**
  *
- * @author henrydare1
+ * @author henrydare
  */
 public class DnD extends Application {
+    
+    private TextField characterName;
+    
+    private TextField pickP;
+    private TextField openL;
+    private TextField fRTraps;
+    private TextField moveS;
+    private TextField hideS;
+    private TextField detectN;
+    private TextField climbW;
+    private TextField readL;
 
     private TextField strengthStat;
     private Button strengthDie;
@@ -44,6 +55,99 @@ public class DnD extends Application {
 //    private Text dexterity;
     @Override
     public void start(Stage primaryStage) {
+        
+        Rectangle theifStats = new Rectangle(1070, 25, 330, 225);
+        Text theifStatLabel = new Text(1200, 45, "Thief Stats");
+        theifStats.setStroke(Color.BLACK);
+        theifStats.setFill(null);
+        
+        Text pickPLabel = new Text(1085, 73, "Pick Pockets");
+        pickP = new TextField("");
+        pickP.setPrefWidth(35);
+        pickP.setPrefHeight(5);
+       // pickP.setStyle("-fx-font-size: 28");
+        pickP.setLayoutX(1200);
+        pickP.setLayoutY(55);
+        
+        Group pickPGroup = new Group(pickPLabel, pickP);
+        
+                Text openLLabel = new Text(1085, 123, "Open Locks");
+        openL = new TextField("");
+        openL.setPrefWidth(35);
+        openL.setPrefHeight(5);
+      //  openL.setStyle("-fx-font-size: 28");
+        openL.setLayoutX(1200);
+        openL.setLayoutY(105);
+        
+        Group openLGroup = new Group(openLLabel, openL);
+        
+                Text fRTrapsLabel = new Text(1085, 173, "Find/Remove Traps");
+        fRTraps = new TextField("");
+        fRTraps.setPrefWidth(35);
+        fRTraps.setPrefHeight(5);
+      //  fRTraps.setStyle("-fx-font-size: 28");
+        fRTraps.setLayoutX(1200);
+        fRTraps.setLayoutY(155);
+        
+        Group fRTrapsGroup = new Group(fRTrapsLabel, fRTraps);
+        
+        
+                Text moveSLabel = new Text(1085, 223, "Move Silently");
+        moveS = new TextField("");
+        moveS.setPrefWidth(35);
+        moveS.setPrefHeight(5);
+      //  moveS.setStyle("-fx-font-size: 28");
+        moveS.setLayoutX(1200);
+        moveS.setLayoutY(205);
+        
+        Group moveSGroup = new Group(moveSLabel, moveS);
+        
+        
+                 Text hideSLabel = new Text(1250, 73, "Hide in Shadows");
+        hideS = new TextField("");
+        hideS.setPrefWidth(35);
+        hideS.setPrefHeight(5);
+      //  moveS.setStyle("-fx-font-size: 28");
+        hideS.setLayoutX(1350);
+        hideS.setLayoutY(55);
+        
+        Group hideSGroup = new Group(hideSLabel, hideS);
+        
+                 Text detectNPLabel = new Text(1250, 123, "Detect Noise");
+        detectN = new TextField("");
+        detectN.setPrefWidth(35);
+        detectN.setPrefHeight(5);
+      //  moveS.setStyle("-fx-font-size: 28");
+        detectN.setLayoutX(1350);
+        detectN.setLayoutY(105);
+        
+        Group detectNGroup = new Group(detectNPLabel, detectN);
+        
+                 Text climbWLabel = new Text(1250, 173, "Climb Walls");
+        climbW = new TextField("");
+        climbW.setPrefWidth(35);
+        climbW.setPrefHeight(5);
+      //  moveS.setStyle("-fx-font-size: 28");
+        climbW.setLayoutX(1350);
+        climbW.setLayoutY(155);
+        
+        Group climbWGroup = new Group(climbWLabel, climbW);
+        
+                 Text rLLabel = new Text(1250, 223, "Read Languages");
+        readL = new TextField("");
+        readL.setPrefWidth(35);
+        readL.setPrefHeight(5);
+      //  moveS.setStyle("-fx-font-size: 28");
+        readL.setLayoutX(1350);
+        readL.setLayoutY(205);
+        
+        Group readLGroup = new Group(rLLabel, readL);
+        
+        
+
+        
+        
+        Group theifGroup = new Group(theifStats, theifStatLabel, pickPGroup, openLGroup, fRTrapsGroup, moveSGroup, hideSGroup, detectNGroup, climbWGroup, readLGroup);
 
         Rectangle strengthBox = new Rectangle(50, 25, 75, 100);
         strengthBox.setStroke(Color.BLACK);
@@ -60,14 +164,14 @@ public class DnD extends Application {
 //Ellipse strengthReroll = new Ellipse(87, 200, 30, 15);
 // strengthReroll.setStroke(Color.BLACK);
         // strengthReroll.setFill(Color.WHITE);
-        //Text rollStrength = new Text(61,203, "(Re-)Roll");
+        //Text rollStrength = new Text(61,203, "(Re-)Roll"); 
         strengthDie = new Button("(Re-)Roll");
         strengthDie.setId("str");
         strengthDie.setLayoutX(54);
         strengthDie.setLayoutY(115);
         strengthDie.setOnAction(this::statGenerator);
 
-        Group strengthGroup = new Group(strengthBox, strengthHead, strengthStat, strengthDie);
+        Group strengthGroup = new Group(strengthBox, strengthHead, strengthStat, strengthDie); 
 
         Rectangle dexterityBox = new Rectangle(50, 150, 75, 100);
         dexterityBox.setStroke(Color.BLACK);
@@ -85,7 +189,7 @@ public class DnD extends Application {
         dexterityDie.setId("dex");
         dexterityDie.setLayoutX(54);
         dexterityDie.setLayoutY(240);
-        dexterityDie.setOnAction(this::statGenerator);
+        dexterityDie.setOnAction(this::thiefSkillGenerator);
 
         Group dexterityGroup = new Group(dexterityBox, dexterityHead, dexterityStat, dexterityDie);
 
@@ -181,7 +285,7 @@ public class DnD extends Application {
         
         Group coreStats = new Group(strengthGroup, dexterityGroup, constitutionGroup, intellectGroup, wisdomGroup, charismaGroup, perceptionGroup);
 
-        Group root = new Group(coreStats);
+        Group root = new Group(coreStats, theifGroup);
 
         Scene scene = new Scene(root, 1000, 1000);
 
@@ -206,6 +310,7 @@ public class DnD extends Application {
 
         } else if ((event.getSource()).toString().contains("dex")) {
             dexterityStat.setText(tot);
+
         } else if ((event.getSource()).toString().contains("const")) {
             constitutionStat.setText(tot);
         } else if ((event.getSource()).toString().contains("intell")) {
@@ -236,6 +341,109 @@ public class DnD extends Application {
             perceptionStat.setText("0");
         }
     }
+    
+    public void dexterityWorkAround(ActionEvent event){
+        int dexNum= Integer.parseInt(dexterityStat.getText());
+        
+        if (dexNum == 0){
+                            dexterityDie.setOnAction(this::statGenerator);
+
+        }else{
+                            dexterityDie.setOnAction(this::thiefSkillGenerator);
+
+        }
+
+    }
+    
+    public void thiefSkillGenerator(ActionEvent event){
+        int dexNum=Integer.parseInt(dexterityStat.getText());
+if (dexNum == 9){
+    pickP.setText("0%");
+    openL.setText("0%");
+    fRTraps.setText("-5%");
+    moveS.setText("-10%");
+    hideS.setText("-5%");
+    detectN.setText("15%");
+    climbW.setText("60%");
+    readL.setText("0%");
+} else if (dexNum == 10){
+      pickP.setText("5%");
+    openL.setText("5%");
+    fRTraps.setText("-5%");
+    moveS.setText("-5%");
+    hideS.setText("0%");
+    detectN.setText("15%");
+    climbW.setText("60%");
+    readL.setText("0%");
+} else if (dexNum == 11){
+      pickP.setText("10%");
+    openL.setText("10%");
+    fRTraps.setText("0%");
+    moveS.setText("0%");
+    hideS.setText("5%");
+    detectN.setText("15%");
+    climbW.setText("60%");
+    readL.setText("0%");
+} else if (dexNum == 12){
+      pickP.setText("15%");
+    openL.setText("10%");
+    fRTraps.setText("5%");
+    moveS.setText("5%");
+    hideS.setText("5%");
+    detectN.setText("15%");
+    climbW.setText("60%");
+    readL.setText("0%");
+} else if (dexNum >= 13 && dexNum <= 15){
+      pickP.setText("15%");
+    openL.setText("10%");
+    fRTraps.setText("5%");
+    moveS.setText("10%");
+    hideS.setText("5%");
+    detectN.setText("15%");
+    climbW.setText("60%");
+    readL.setText("0%");
+    
+} else if (dexNum == 16){
+      pickP.setText("15%");
+    openL.setText("15%");
+    fRTraps.setText("5%");
+    moveS.setText("10%");
+    hideS.setText("5%");
+    detectN.setText("15%");
+    climbW.setText("60%");
+    readL.setText("0%");
+} else if (dexNum == 17){
+      pickP.setText("20%");
+    openL.setText("25%");
+    fRTraps.setText("5%");
+    moveS.setText("15%");
+    hideS.setText("10%");
+    detectN.setText("15%");
+    climbW.setText("60%");
+    readL.setText("0%");
+} else if (dexNum == 18){
+      pickP.setText("30%");
+    openL.setText("40%");
+    fRTraps.setText("10%");
+    moveS.setText("25%");
+    hideS.setText("20%");
+    detectN.setText("15%");
+    climbW.setText("60%");
+    readL.setText("0%");
+}
+ else if (dexNum == 19){
+      pickP.setText("45%");
+    openL.setText("60%");
+    fRTraps.setText("20%");
+    moveS.setText("40%");
+    hideS.setText("35%");
+    detectN.setText("15%");
+    climbW.setText("60%");
+    readL.setText("0%");
+}
+
+
+}
 
     /**
      * @param args the command line arguments
