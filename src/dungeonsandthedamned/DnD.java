@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import java.util.Random;
 import javafx.scene.text.Text;
 import javafx.scene.Group;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
 
@@ -24,9 +24,16 @@ import javafx.scene.paint.Color;
  * @author henrydare
  */
 public class DnD extends Application {
-    
+
     private TextField characterName;
-    
+    private TextField characterLevel;
+    private ComboBox characterGender;
+    private ComboBox characterRace;
+    private ComboBox characterClass;
+    private TextField characterHeight;
+    private TextField characterWeight;
+    private Button setVarious;
+
     private TextField pickP;
     private TextField openL;
     private TextField fRTraps;
@@ -55,98 +62,176 @@ public class DnD extends Application {
 //    private Text dexterity;
     @Override
     public void start(Stage primaryStage) {
-        
+
+        Rectangle characterBasicBox = new Rectangle(175, 25, 400, 60);
+        characterBasicBox.setStroke(Color.BLACK);
+        characterBasicBox.setFill(null);
+
+        characterName = new TextField("Character Name");
+        characterName.setPrefWidth(125);
+        characterName.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        characterName.setLayoutX(190);
+        characterName.setLayoutY(40);
+
+        characterGender = new ComboBox();
+        characterGender.getItems().addAll(
+                "M", "F");
+        characterGender.setValue("Sex");
+        characterGender.setPrefWidth(60);
+        characterGender.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        characterGender.setLayoutX(325);
+        characterGender.setLayoutY(40);
+
+        characterLevel = new TextField("0");
+        characterLevel.setPrefWidth(42);
+        characterLevel.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        characterLevel.setLayoutX(395);
+        characterLevel.setLayoutY(40);
+
+        characterRace = new ComboBox();
+        characterRace.getItems().addAll(
+                "Human",
+                "Halfling",
+                "Half-Elf",
+                "Elf",
+                "Gnome",
+                "Dwarf"
+        );
+        characterRace.setValue("Race");
+        characterRace.setPrefWidth(100);
+        characterRace.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        characterRace.setLayoutX(447);
+        characterRace.setLayoutY(40);
+
+        characterClass = new ComboBox();
+        characterClass.getItems().addAll(
+                "Fighter", "Paladin", "Ranger",
+                "Mage", "Specialist", "Illusionist",
+                "Cleric", "Mythoi", "Druid",
+                "Theif", "Bard", "Multi-Class"
+        );
+        characterClass.setValue("Class");
+        characterClass.setPrefWidth(110);
+        characterClass.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        characterClass.setLayoutX(557);
+        characterClass.setLayoutY(40);
+
+        Text heightLabel = new Text(677, 57, "Height(in)");
+        characterHeight = new TextField("0");
+        characterHeight.setPrefWidth(44);
+        characterHeight.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        characterHeight.setLayoutX(734);
+        characterHeight.setLayoutY(40);
+
+        Text weightLabel = new Text(786, 57, "Weight(lbs)");
+        characterWeight = new TextField("0");
+        characterWeight.setPrefWidth(44);
+        characterWeight.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        characterWeight.setLayoutX(853);
+        characterWeight.setLayoutY(40);
+
+        setVarious = new Button("(Re)Set");
+        setVarious.setId("setVarious");
+        setVarious.setLayoutX(912);
+        setVarious.setLayoutY(40);
+        setVarious.setOnAction(event -> {
+            characterRaceStats(characterRace.getValue().toString());
+        });
+
+        Group CharacterBasics = new Group(characterBasicBox, characterName, characterGender, characterLevel, characterRace, characterClass, heightLabel, characterHeight, weightLabel, characterWeight, setVarious);
+
         Rectangle theifStats = new Rectangle(1070, 25, 330, 225);
         Text theifStatLabel = new Text(1200, 45, "Thief Stats");
         theifStats.setStroke(Color.BLACK);
         theifStats.setFill(null);
-        
+
         Text pickPLabel = new Text(1085, 73, "Pick Pockets");
         pickP = new TextField("");
         pickP.setPrefWidth(35);
         pickP.setPrefHeight(5);
-       // pickP.setStyle("-fx-font-size: 28");
+        // pickP.setStyle("-fx-font-size: 28");
         pickP.setLayoutX(1200);
         pickP.setLayoutY(55);
-        
+
         Group pickPGroup = new Group(pickPLabel, pickP);
-        
-                Text openLLabel = new Text(1085, 123, "Open Locks");
+
+        Text openLLabel = new Text(1085, 123, "Open Locks");
         openL = new TextField("");
         openL.setPrefWidth(35);
         openL.setPrefHeight(5);
-      //  openL.setStyle("-fx-font-size: 28");
+        //  openL.setStyle("-fx-font-size: 28");
         openL.setLayoutX(1200);
         openL.setLayoutY(105);
-        
+
         Group openLGroup = new Group(openLLabel, openL);
-        
-                Text fRTrapsLabel = new Text(1085, 173, "Find/Remove Traps");
+
+        Text fRTrapsLabel = new Text(1085, 173, "Find/Remove Traps");
         fRTraps = new TextField("");
         fRTraps.setPrefWidth(35);
         fRTraps.setPrefHeight(5);
-      //  fRTraps.setStyle("-fx-font-size: 28");
+        //  fRTraps.setStyle("-fx-font-size: 28");
         fRTraps.setLayoutX(1200);
         fRTraps.setLayoutY(155);
-        
+
         Group fRTrapsGroup = new Group(fRTrapsLabel, fRTraps);
-        
-        
-                Text moveSLabel = new Text(1085, 223, "Move Silently");
+
+        Text moveSLabel = new Text(1085, 223, "Move Silently");
         moveS = new TextField("");
         moveS.setPrefWidth(35);
         moveS.setPrefHeight(5);
-      //  moveS.setStyle("-fx-font-size: 28");
+        //  moveS.setStyle("-fx-font-size: 28");
         moveS.setLayoutX(1200);
         moveS.setLayoutY(205);
-        
+
         Group moveSGroup = new Group(moveSLabel, moveS);
-        
-        
-                 Text hideSLabel = new Text(1250, 73, "Hide in Shadows");
+
+        Text hideSLabel = new Text(1250, 73, "Hide in Shadows");
         hideS = new TextField("");
         hideS.setPrefWidth(35);
         hideS.setPrefHeight(5);
-      //  moveS.setStyle("-fx-font-size: 28");
+        //  moveS.setStyle("-fx-font-size: 28");
         hideS.setLayoutX(1350);
         hideS.setLayoutY(55);
-        
+
         Group hideSGroup = new Group(hideSLabel, hideS);
-        
-                 Text detectNPLabel = new Text(1250, 123, "Detect Noise");
+
+        Text detectNPLabel = new Text(1250, 123, "Detect Noise");
         detectN = new TextField("");
         detectN.setPrefWidth(35);
         detectN.setPrefHeight(5);
-      //  moveS.setStyle("-fx-font-size: 28");
+        //  moveS.setStyle("-fx-font-size: 28");
         detectN.setLayoutX(1350);
         detectN.setLayoutY(105);
-        
+
         Group detectNGroup = new Group(detectNPLabel, detectN);
-        
-                 Text climbWLabel = new Text(1250, 173, "Climb Walls");
+
+        Text climbWLabel = new Text(1250, 173, "Climb Walls");
         climbW = new TextField("");
         climbW.setPrefWidth(35);
         climbW.setPrefHeight(5);
-      //  moveS.setStyle("-fx-font-size: 28");
+        //  moveS.setStyle("-fx-font-size: 28");
         climbW.setLayoutX(1350);
         climbW.setLayoutY(155);
-        
+
         Group climbWGroup = new Group(climbWLabel, climbW);
-        
-                 Text rLLabel = new Text(1250, 223, "Read Languages");
+
+        Text rLLabel = new Text(1250, 223, "Read Languages");
         readL = new TextField("");
         readL.setPrefWidth(35);
         readL.setPrefHeight(5);
-      //  moveS.setStyle("-fx-font-size: 28");
+        //  moveS.setStyle("-fx-font-size: 28");
         readL.setLayoutX(1350);
         readL.setLayoutY(205);
-        
-        Group readLGroup = new Group(rLLabel, readL);
-        
-        
 
-        
-        
+        Group readLGroup = new Group(rLLabel, readL);
+
         Group theifGroup = new Group(theifStats, theifStatLabel, pickPGroup, openLGroup, fRTrapsGroup, moveSGroup, hideSGroup, detectNGroup, climbWGroup, readLGroup);
 
         Rectangle strengthBox = new Rectangle(50, 25, 75, 100);
@@ -171,7 +256,7 @@ public class DnD extends Application {
         strengthDie.setLayoutY(115);
         strengthDie.setOnAction(this::statGenerator);
 
-        Group strengthGroup = new Group(strengthBox, strengthHead, strengthStat, strengthDie); 
+        Group strengthGroup = new Group(strengthBox, strengthHead, strengthStat, strengthDie);
 
         Rectangle dexterityBox = new Rectangle(50, 150, 75, 100);
         dexterityBox.setStroke(Color.BLACK);
@@ -189,7 +274,7 @@ public class DnD extends Application {
         dexterityDie.setId("dex");
         dexterityDie.setLayoutX(54);
         dexterityDie.setLayoutY(240);
-        dexterityDie.setOnAction(this::thiefSkillGenerator);
+        dexterityDie.setOnAction(this::statGenerator);
 
         Group dexterityGroup = new Group(dexterityBox, dexterityHead, dexterityStat, dexterityDie);
 
@@ -282,10 +367,10 @@ public class DnD extends Application {
         perceptionDie.setOnAction(this::statGenerator);
 
         Group perceptionGroup = new Group(perceptionBox, perceptionHead, perceptionStat, perceptionDie);
-        
+
         Group coreStats = new Group(strengthGroup, dexterityGroup, constitutionGroup, intellectGroup, wisdomGroup, charismaGroup, perceptionGroup);
 
-        Group root = new Group(coreStats, theifGroup);
+        Group root = new Group(coreStats, theifGroup, CharacterBasics);
 
         Scene scene = new Scene(root, 1000, 1000);
 
@@ -310,6 +395,7 @@ public class DnD extends Application {
 
         } else if ((event.getSource()).toString().contains("dex")) {
             dexterityStat.setText(tot);
+            thiefSkillGenerator(rollTotal);
 
         } else if ((event.getSource()).toString().contains("const")) {
             constitutionStat.setText(tot);
@@ -341,109 +427,174 @@ public class DnD extends Application {
             perceptionStat.setText("0");
         }
     }
-    
-    public void dexterityWorkAround(ActionEvent event){
-        int dexNum= Integer.parseInt(dexterityStat.getText());
-        
-        if (dexNum == 0){
-                            dexterityDie.setOnAction(this::statGenerator);
 
-        }else{
-                            dexterityDie.setOnAction(this::thiefSkillGenerator);
+    public void thiefSkillGenerator(int dexInput) {
 
+        // int dexNum=Integer.parseInt(dexterityStat.getText());
+        int dexNum = dexInput;
+        if (dexNum < 9) {
+            pickP.setText("0%");
+            openL.setText("0%");
+            fRTraps.setText("0%");
+            moveS.setText("0%");
+            hideS.setText("0%");
+            detectN.setText("0%");
+            climbW.setText("0%");
+            readL.setText("0%");
+        } else if (dexNum == 9) {
+            pickP.setText("0%");
+            openL.setText("0%");
+            fRTraps.setText("-5%");
+            moveS.setText("-10%");
+            hideS.setText("-5%");
+            detectN.setText("15%");
+            climbW.setText("60%");
+            readL.setText("0%");
+        } else if (dexNum == 10) {
+            pickP.setText("5%");
+            openL.setText("5%");
+            fRTraps.setText("-5%");
+            moveS.setText("-5%");
+            hideS.setText("0%");
+            detectN.setText("15%");
+            climbW.setText("60%");
+            readL.setText("0%");
+        } else if (dexNum == 11) {
+            pickP.setText("10%");
+            openL.setText("10%");
+            fRTraps.setText("0%");
+            moveS.setText("0%");
+            hideS.setText("5%");
+            detectN.setText("15%");
+            climbW.setText("60%");
+            readL.setText("0%");
+        } else if (dexNum == 12) {
+            pickP.setText("15%");
+            openL.setText("10%");
+            fRTraps.setText("5%");
+            moveS.setText("5%");
+            hideS.setText("5%");
+            detectN.setText("15%");
+            climbW.setText("60%");
+            readL.setText("0%");
+        } else if (dexNum >= 13 && dexNum <= 15) {
+            pickP.setText("15%");
+            openL.setText("10%");
+            fRTraps.setText("5%");
+            moveS.setText("10%");
+            hideS.setText("5%");
+            detectN.setText("15%");
+            climbW.setText("60%");
+            readL.setText("0%");
+
+        } else if (dexNum == 16) {
+            pickP.setText("15%");
+            openL.setText("15%");
+            fRTraps.setText("5%");
+            moveS.setText("10%");
+            hideS.setText("5%");
+            detectN.setText("15%");
+            climbW.setText("60%");
+            readL.setText("0%");
+        } else if (dexNum == 17) {
+            pickP.setText("20%");
+            openL.setText("25%");
+            fRTraps.setText("5%");
+            moveS.setText("15%");
+            hideS.setText("10%");
+            detectN.setText("15%");
+            climbW.setText("60%");
+            readL.setText("0%");
+        } else if (dexNum == 18) {
+            pickP.setText("30%");
+            openL.setText("40%");
+            fRTraps.setText("10%");
+            moveS.setText("25%");
+            hideS.setText("20%");
+            detectN.setText("15%");
+            climbW.setText("60%");
+            readL.setText("0%");
+        } else if (dexNum == 19) {
+            pickP.setText("45%");
+            openL.setText("60%");
+            fRTraps.setText("20%");
+            moveS.setText("40%");
+            hideS.setText("35%");
+            detectN.setText("15%");
+            climbW.setText("60%");
+            readL.setText("0%");
         }
 
     }
-    
-    public void thiefSkillGenerator(ActionEvent event){
-        int dexNum=Integer.parseInt(dexterityStat.getText());
-if (dexNum == 9){
-    pickP.setText("0%");
-    openL.setText("0%");
-    fRTraps.setText("-5%");
-    moveS.setText("-10%");
-    hideS.setText("-5%");
-    detectN.setText("15%");
-    climbW.setText("60%");
-    readL.setText("0%");
-} else if (dexNum == 10){
-      pickP.setText("5%");
-    openL.setText("5%");
-    fRTraps.setText("-5%");
-    moveS.setText("-5%");
-    hideS.setText("0%");
-    detectN.setText("15%");
-    climbW.setText("60%");
-    readL.setText("0%");
-} else if (dexNum == 11){
-      pickP.setText("10%");
-    openL.setText("10%");
-    fRTraps.setText("0%");
-    moveS.setText("0%");
-    hideS.setText("5%");
-    detectN.setText("15%");
-    climbW.setText("60%");
-    readL.setText("0%");
-} else if (dexNum == 12){
-      pickP.setText("15%");
-    openL.setText("10%");
-    fRTraps.setText("5%");
-    moveS.setText("5%");
-    hideS.setText("5%");
-    detectN.setText("15%");
-    climbW.setText("60%");
-    readL.setText("0%");
-} else if (dexNum >= 13 && dexNum <= 15){
-      pickP.setText("15%");
-    openL.setText("10%");
-    fRTraps.setText("5%");
-    moveS.setText("10%");
-    hideS.setText("5%");
-    detectN.setText("15%");
-    climbW.setText("60%");
-    readL.setText("0%");
-    
-} else if (dexNum == 16){
-      pickP.setText("15%");
-    openL.setText("15%");
-    fRTraps.setText("5%");
-    moveS.setText("10%");
-    hideS.setText("5%");
-    detectN.setText("15%");
-    climbW.setText("60%");
-    readL.setText("0%");
-} else if (dexNum == 17){
-      pickP.setText("20%");
-    openL.setText("25%");
-    fRTraps.setText("5%");
-    moveS.setText("15%");
-    hideS.setText("10%");
-    detectN.setText("15%");
-    climbW.setText("60%");
-    readL.setText("0%");
-} else if (dexNum == 18){
-      pickP.setText("30%");
-    openL.setText("40%");
-    fRTraps.setText("10%");
-    moveS.setText("25%");
-    hideS.setText("20%");
-    detectN.setText("15%");
-    climbW.setText("60%");
-    readL.setText("0%");
-}
- else if (dexNum == 19){
-      pickP.setText("45%");
-    openL.setText("60%");
-    fRTraps.setText("20%");
-    moveS.setText("40%");
-    hideS.setText("35%");
-    detectN.setText("15%");
-    climbW.setText("60%");
-    readL.setText("0%");
-}
 
+    public String characterRaceStats(String listItem) {
+        String chosenRace = characterRace.getValue().toString();
+        String needed = "uhh";
+        // String chosenRace = event.getSource().toString();
+        String chosenGender = characterGender.getValue().toString();
+        if (chosenRace.contains("Human")) {
+            if (chosenGender.contains("M")) {
+                characterHeight.setText("60");
+                characterWeight.setText("140");
 
-}
+            } else {
+                characterHeight.setText("59");
+                characterWeight.setText("100");
+            }
+
+        } else if (chosenRace.contains("Halfling")) {
+            if (chosenGender.contains("M")) {
+                characterHeight.setText("32");
+                characterWeight.setText("52");
+
+            } else {
+                characterHeight.setText("30");
+                characterWeight.setText("48");
+            }
+            // int strengthTemp = Integer.parseInt(strengthStat.toString());
+            //  int newStrength = strengthTemp +=1;
+            // String bruh = Integer.toString(newStrength);
+            //  strengthStat.setText(bruh);
+        } else if (chosenRace.contains("Half-Elf")) {
+            if (chosenGender.contains("M")) {
+                characterHeight.setText("60");
+                characterWeight.setText("110");
+
+            } else {
+                characterHeight.setText("58");
+                characterWeight.setText("85");
+            }
+        } else if (chosenRace.contains("Elf")) {
+            if (chosenGender.contains("M")) {
+                characterHeight.setText("55");
+                characterWeight.setText("90");
+
+            } else {
+                characterHeight.setText("50");
+                characterWeight.setText("70");
+            }
+        } else if (chosenRace.contains("Gnome")) {
+            if (chosenGender.contains("M")) {
+                characterHeight.setText("38");
+                characterWeight.setText("72");
+
+            } else {
+                characterHeight.setText("36");
+                characterWeight.setText("68");
+            }
+        } else if (chosenRace.contains("Dwarf")) {
+            if (chosenGender.contains("M")) {
+                characterHeight.setText("43");
+                characterWeight.setText("130");
+
+            } else {
+                characterHeight.setText("41");
+                characterWeight.setText("105");
+            }
+        }
+
+        return needed;
+    }
 
     /**
      * @param args the command line arguments
