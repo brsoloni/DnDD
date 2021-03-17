@@ -63,7 +63,7 @@ public class DnD extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        Rectangle characterBasicBox = new Rectangle(175, 25, 400, 60);
+        Rectangle characterBasicBox = new Rectangle(175, 25, 790, 60);
         characterBasicBox.setStroke(Color.BLACK);
         characterBasicBox.setFill(null);
 
@@ -137,7 +137,7 @@ public class DnD extends Application {
         characterWeight.setLayoutX(853);
         characterWeight.setLayoutY(40);
 
-        setVarious = new Button("(Re)Set");
+        setVarious = new Button("Set");
         setVarious.setId("setVarious");
         setVarious.setLayoutX(912);
         setVarious.setLayoutY(40);
