@@ -9,7 +9,6 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import java.util.Random;
@@ -27,12 +26,21 @@ public class DnD extends Application {
 
     private TextField characterName;
     private TextField characterLevel;
+    private TextField characterAge;
     private ComboBox characterGender;
     private ComboBox characterRace;
     private ComboBox characterClass;
     private TextField characterHeight;
     private TextField characterWeight;
     private Button setVarious;
+
+    private ComboBox inventoryArmor;
+    private ComboBox inventoryShield;
+    private TextField platinumCurrency;
+    private TextField goldCurrency;
+    private TextField silverCurrency;
+    private TextField copperCurrency;
+    private TextArea otherInventory;
 
     private TextField pickP;
     private TextField openL;
@@ -63,7 +71,74 @@ public class DnD extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        Rectangle characterBasicBox = new Rectangle(175, 25, 790, 60);
+        Rectangle inventoryBasicBox = new Rectangle(140, 100, 915, 275);
+        inventoryBasicBox.setStroke(Color.BLACK);
+        inventoryBasicBox.setFill(null);
+
+        Text inventoryHeaderLabel = new Text(580, 120, "Inventory");
+
+        Text inventoryArmorLabel = new Text(155, 148, "Current Armor");
+        inventoryArmor = new ComboBox();
+        inventoryArmor.getItems().addAll("Armor 1", "Armor 2", "Armor 3");
+        inventoryArmor.setPrefWidth(125);
+        inventoryArmor.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        inventoryArmor.setLayoutX(250);
+        inventoryArmor.setLayoutY(130);
+
+        Text inventoryShieldLabel = new Text(390, 148, "Shield");
+        inventoryShield = new ComboBox();
+        inventoryShield.getItems().addAll("Yes", "No");
+        inventoryShield.setPrefWidth(70);
+        inventoryShield.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        inventoryShield.setLayoutX(440);
+        inventoryShield.setLayoutY(130);
+
+        Text platinumCurrencyLabel = new Text(525, 148, "Platinum");
+        platinumCurrency = new TextField("");
+        platinumCurrency.setPrefWidth(65);
+        platinumCurrency.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        platinumCurrency.setLayoutX(585);
+        platinumCurrency.setLayoutY(130);
+
+        Text goldCurrencyLabel = new Text(665, 148, "Gold");
+        goldCurrency = new TextField("");
+        goldCurrency.setPrefWidth(65);
+        goldCurrency.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        goldCurrency.setLayoutX(705);
+        goldCurrency.setLayoutY(130);
+
+        Text silverCurrencyLabel = new Text(785, 148, "Silver");
+        silverCurrency = new TextField("");
+        silverCurrency.setPrefWidth(65);
+        silverCurrency.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        silverCurrency.setLayoutX(830);
+        silverCurrency.setLayoutY(130);
+
+        Text copperCurrencyLabel = new Text(910, 148, "Copper");
+        copperCurrency = new TextField("");
+        copperCurrency.setPrefWidth(65);
+        copperCurrency.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        copperCurrency.setLayoutX(965);
+        copperCurrency.setLayoutY(130);
+
+        otherInventory = new TextArea("");
+        otherInventory.setPrefWidth(885);
+        otherInventory.setPrefHeight(190);
+        // pickP.setStyle("-fx-font-size: 28");
+        otherInventory.setLayoutX(155);
+        otherInventory.setLayoutY(170);
+
+        Group inventoryBasics = new Group(inventoryBasicBox, inventoryHeaderLabel, inventoryArmorLabel, inventoryArmor, inventoryShieldLabel, inventoryShield,
+                platinumCurrencyLabel, platinumCurrency, goldCurrencyLabel, goldCurrency, silverCurrencyLabel, silverCurrency, copperCurrencyLabel, copperCurrency, otherInventory);
+
+        //  Rectangle characterBasicBox = new Rectangle(175, 25, 790, 60);
+        Rectangle characterBasicBox = new Rectangle(140, 25, 915, 60);
         characterBasicBox.setStroke(Color.BLACK);
         characterBasicBox.setFill(null);
 
@@ -71,8 +146,16 @@ public class DnD extends Application {
         characterName.setPrefWidth(125);
         characterName.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
-        characterName.setLayoutX(190);
+        characterName.setLayoutX(155);
         characterName.setLayoutY(40);
+
+        Text characterAgeLabel = new Text(290, 57, "Age");
+        characterAge = new TextField("0");
+        characterAge.setPrefWidth(42);
+        characterAge.setPrefHeight(5);
+        // pickP.setStyle("-fx-font-size: 28");
+        characterAge.setLayoutX(315);
+        characterAge.setLayoutY(40);
 
         characterGender = new ComboBox();
         characterGender.getItems().addAll(
@@ -81,14 +164,15 @@ public class DnD extends Application {
         characterGender.setPrefWidth(60);
         characterGender.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
-        characterGender.setLayoutX(325);
+        characterGender.setLayoutX(372);
         characterGender.setLayoutY(40);
 
+        Text characterLevelLabel = new Text(447, 57, "Level");
         characterLevel = new TextField("0");
         characterLevel.setPrefWidth(42);
         characterLevel.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
-        characterLevel.setLayoutX(395);
+        characterLevel.setLayoutX(481);
         characterLevel.setLayoutY(40);
 
         characterRace = new ComboBox();
@@ -104,7 +188,7 @@ public class DnD extends Application {
         characterRace.setPrefWidth(100);
         characterRace.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
-        characterRace.setLayoutX(447);
+        characterRace.setLayoutX(538);
         characterRace.setLayoutY(40);
 
         characterClass = new ComboBox();
@@ -118,34 +202,35 @@ public class DnD extends Application {
         characterClass.setPrefWidth(110);
         characterClass.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
-        characterClass.setLayoutX(557);
+        characterClass.setLayoutX(648);
         characterClass.setLayoutY(40);
 
-        Text heightLabel = new Text(677, 57, "Height(in)");
+        Text heightLabel = new Text(768, 57, "Height(in)");
         characterHeight = new TextField("0");
         characterHeight.setPrefWidth(44);
         characterHeight.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
-        characterHeight.setLayoutX(734);
+        characterHeight.setLayoutX(825);
         characterHeight.setLayoutY(40);
 
-        Text weightLabel = new Text(786, 57, "Weight(lbs)");
+        Text weightLabel = new Text(877, 57, "Weight(lbs)");
         characterWeight = new TextField("0");
         characterWeight.setPrefWidth(44);
         characterWeight.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
-        characterWeight.setLayoutX(853);
+        characterWeight.setLayoutX(944);
         characterWeight.setLayoutY(40);
 
         setVarious = new Button("Set");
         setVarious.setId("setVarious");
-        setVarious.setLayoutX(912);
+        setVarious.setLayoutX(1005);
         setVarious.setLayoutY(40);
         setVarious.setOnAction(event -> {
             characterRaceStats(characterRace.getValue().toString());
         });
 
-        Group CharacterBasics = new Group(characterBasicBox, characterName, characterGender, characterLevel, characterRace, characterClass, heightLabel, characterHeight, weightLabel, characterWeight, setVarious);
+        Group CharacterBasics = new Group(characterBasicBox, characterName, characterAgeLabel, characterAge, characterGender, characterLevelLabel, characterLevel,
+                characterRace, characterClass, heightLabel, characterHeight, weightLabel, characterWeight, setVarious);
 
         Rectangle theifStats = new Rectangle(1070, 25, 330, 225);
         Text theifStatLabel = new Text(1200, 45, "Thief Stats");
@@ -370,7 +455,7 @@ public class DnD extends Application {
 
         Group coreStats = new Group(strengthGroup, dexterityGroup, constitutionGroup, intellectGroup, wisdomGroup, charismaGroup, perceptionGroup);
 
-        Group root = new Group(coreStats, theifGroup, CharacterBasics);
+        Group root = new Group(coreStats, theifGroup, CharacterBasics, inventoryBasics);
 
         Scene scene = new Scene(root, 1000, 1000);
 
