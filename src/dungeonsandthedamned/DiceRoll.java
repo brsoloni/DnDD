@@ -26,14 +26,16 @@ public class DiceRoll {
             int preception = (stats[3] + stats[4]) / 2;
             System.out.println("Preception: " + preception);
             
+            strengthDamage(stats);
+            
     }
         
-        public static void strengthDamage(int stats[]){
+        public static void strengthDamage(int damage[]){
             Scanner diceSize = new Scanner(System.in);
             System.out.println("Enter the number of sides on the dice");
             
             int size = diceSize.nextInt();
-            System.out.println(stats[0] + size);
+            System.out.println(damage[0] + size);
         }
         
 }
