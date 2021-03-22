@@ -14,7 +14,7 @@ import java.util.Random;
 public class Character {
     static int ID=0;
     int PID=0;
-    int[] stats= new int[6];
+    int[] stats= new int[7];
     int Spercent;
     int gold,silver,copper,platnum;
     String name, inventory;
@@ -40,6 +40,7 @@ public class Character {
             stats[i]= rolltotal;
             rolltotal=0;
         }
+        stats[6]= (stats[3]+stats[4])/2;
         if(stats[0]==18){Spercent=roll.nextInt(99)+1;}
     }
     //get funtions
@@ -70,6 +71,10 @@ public class Character {
     public int getChr()
     {
         return stats[5];
+    }
+    public int gerPer()
+    {
+        return stats[6];
     }
     public int getSpercent()
     {
