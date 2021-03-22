@@ -65,6 +65,7 @@ public class DnD extends Application {
     private Button charismaDie;
     private TextField perceptionStat;
     private Button perceptionDie;
+    private Button allDie;
 
 //    private Text strength;
 //    private Text dexterity;
@@ -79,7 +80,9 @@ public class DnD extends Application {
 
         Text inventoryArmorLabel = new Text(155, 148, "Current Armor");
         inventoryArmor = new ComboBox();
-        inventoryArmor.getItems().addAll("Armor 1", "Armor 2", "Armor 3");
+        inventoryArmor.getItems().addAll("Leather", "Padded", "Studded Leather",
+                "Ring mail","Brigandine","Scale Mail","Hide","Chain mail",
+                "Split Mail","Banded Mail","Bronze Plate","Plate Mail","Field Plate","Full Plate");
         inventoryArmor.setPrefWidth(125);
         inventoryArmor.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
@@ -451,7 +454,13 @@ public class DnD extends Application {
         perceptionDie.setLayoutY(865);
         perceptionDie.setOnAction(this::statGenerator);
 
-        Group perceptionGroup = new Group(perceptionBox, perceptionHead, perceptionStat, perceptionDie);
+        allDie = new Button("Roleall");
+        allDie.setId("allrole");
+        allDie.setLayoutX(62);
+        allDie.setLayoutY(900);
+        allDie.setOnAction(this::statGenerator);
+        
+        Group perceptionGroup = new Group(perceptionBox, perceptionHead, perceptionStat, perceptionDie,allDie);
 
         Group coreStats = new Group(strengthGroup, dexterityGroup, constitutionGroup, intellectGroup, wisdomGroup, charismaGroup, perceptionGroup);
 
@@ -510,9 +519,28 @@ public class DnD extends Application {
             wisdomStat.setText("0");
             charismaStat.setText("0");
             perceptionStat.setText("0");
+        } else if ((event.getSource()).toString().contains("allrole")) {
+            strengthStat.setText(total());
+            dexterityStat.setText(total());
+            constitutionStat.setText(total());
+            intellectStat.setText(total());
+            wisdomStat.setText(total());
+            charismaStat.setText(total());
+            int result = (Integer.parseInt(wisdomStat.getText()) + Integer.parseInt(intellectStat.getText())) / 2;
+            perceptionStat.setText(""+result);
+            
         }
+        
     }
-
+    public String total(){
+        Random rand = new Random();
+        int maxInt = 6;
+        int roll1 = rand.nextInt(maxInt);
+        int roll2 = rand.nextInt(maxInt);
+        int roll3 = rand.nextInt(maxInt);
+        int rollTotal = roll1 + roll2 + roll3;
+        return Integer.toString(rollTotal);
+    }
     public void thiefSkillGenerator(int dexInput) {
 
         // int dexNum=Integer.parseInt(dexterityStat.getText());
