@@ -467,7 +467,7 @@ public class DnD extends Application {
         save.setLayoutY(927);
         save.setOnAction(this::save);
         
-        Group perceptionGroup = new Group(perceptionBox, perceptionHead, perceptionStat, perceptionDie,allDie);
+        Group perceptionGroup = new Group(perceptionBox, perceptionHead, perceptionStat, perceptionDie,allDie,save);
 
         Group coreStats = new Group(strengthGroup, dexterityGroup, constitutionGroup, intellectGroup, wisdomGroup, charismaGroup, perceptionGroup);
 
