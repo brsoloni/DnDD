@@ -43,7 +43,7 @@ public class Character {
         stats[6]= (stats[3]+stats[4])/2;
         if(stats[0]==18){Spercent=roll.nextInt(99)+1;}
     }
-    //get funtions
+    //get funtions 
     public String getName()
     {
         return name;
@@ -153,4 +153,9 @@ public class Character {
     {
         inventory=q;
     }
+    public void Save()
+    {
+        
+    }
+            
 }
