@@ -6,7 +6,10 @@
 package dungeonsandthedamned;
 
 import java.util.Random;
+import java.io.*;
+import java.util.Scanner;
 
+//import java.io.File
 /**
  *
  * @author SpencerBucknam!
@@ -153,9 +156,22 @@ public class Character {
     {
         inventory=q;
     }
-    public void Save()
+    public void save()
     {
+       try{ FileWriter write =new FileWriter("Character1.txt",true);
+       write.write(name);
+       
+       
+       write.close();
+       }
+        catch(IOException e){}
         
     }
+    public void Load()
+    {
+        //FileReader saves =new FileReader("Character1.txt");
+       // Scanner read = new Scanner(saves);
+    }
+            
             
 }

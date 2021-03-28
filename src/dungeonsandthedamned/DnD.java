@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dnd;
+package dungeonsandthedamned;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -17,6 +17,7 @@ import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
+
 
 /**
  *
@@ -65,8 +66,9 @@ public class DnD extends Application {
     private Button charismaDie;
     private TextField perceptionStat;
     private Button perceptionDie;
+    
     private Button allDie;
-
+    private Button save;
 //    private Text strength;
 //    private Text dexterity;
     @Override
@@ -460,6 +462,11 @@ public class DnD extends Application {
         allDie.setLayoutY(900);
         allDie.setOnAction(this::statGenerator);
         
+        save = new Button("Save");
+        save.setLayoutX(62);
+        save.setLayoutY(927);
+        save.setOnAction(this::save);
+        
         Group perceptionGroup = new Group(perceptionBox, perceptionHead, perceptionStat, perceptionDie,allDie);
 
         Group coreStats = new Group(strengthGroup, dexterityGroup, constitutionGroup, intellectGroup, wisdomGroup, charismaGroup, perceptionGroup);
@@ -473,7 +480,13 @@ public class DnD extends Application {
         primaryStage.show();
 
     }
-
+    
+    public void save()
+    {
+        Character new1 = new Character();
+        new1.setName("BOB");
+        new1.save();
+    }
     public void statGenerator(ActionEvent event) {
 
         Random rand = new Random();
