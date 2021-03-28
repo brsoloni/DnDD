@@ -482,7 +482,7 @@ public class DnD extends Application {
 
     }
     
-    public void save()
+   /* public void save()
     {
         if ((event.getSource()).toString().contains("Save")) {
         Character new1 = new Character();
@@ -490,7 +490,7 @@ public class DnD extends Application {
         new1.save();
         }
         
-    }
+    }*/
     public void statGenerator(ActionEvent event) {
 
         Random rand = new Random();
