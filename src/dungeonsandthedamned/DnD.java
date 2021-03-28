@@ -463,6 +463,7 @@ public class DnD extends Application {
         allDie.setOnAction(this::statGenerator);
         
         save = new Button("Save");
+        save.setId("Save");
         save.setLayoutX(62);
         save.setLayoutY(927);
         save.setOnAction(this::save);
@@ -483,9 +484,12 @@ public class DnD extends Application {
     
     public void save()
     {
+        if ((event.getSource()).toString().contains("Save")) {
         Character new1 = new Character();
         new1.setName("BOB");
         new1.save();
+        }
+        
     }
     public void statGenerator(ActionEvent event) {
 
