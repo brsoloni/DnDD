@@ -160,9 +160,46 @@ public class Character {
     {
        try{ FileWriter write =new FileWriter("Character1.txt",true);
        write.write(name);
+       write.write("\r\n");
        
+       write.write(stats[0]);
+       write.write("\r\n");
+       
+       write.write(stats[1]); 
+       write.write("\r\n");
+       
+       write.write(stats[2]);      
+       write.write("\r\n");
+       
+       write.write(stats[3]);
+       write.write("\r\n");
+       
+       write.write(stats[4]);
+       write.write("\r\n");
+       
+       write.write(stats[5]);
+       write.write("\r\n");
+       
+       write.write(Spercent);
+       write.write("\r\n");
+       
+       write.write(platnum);
+       write.write("\r\n");
+       
+       write.write(gold);
+       write.write("\r\n");
+       
+       write.write(silver);
+       write.write("\r\n");
+       
+       write.write(copper);
+       write.write("\r\n");
+       
+       write.write(inventory);
+       write.write("\r\n");
        
        write.close();
+       
        }
         catch(IOException e){}
         
@@ -170,7 +207,7 @@ public class Character {
     public void Load()
     {
         //FileReader saves =new FileReader("Character1.txt");
-       // Scanner read = new Scanner(saves);
+       
     }
             
             
