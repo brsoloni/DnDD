@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dnd;
+package dungeonsandthedamned;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -482,15 +482,15 @@ public class DnD extends Application {
 
     }
     
-   /* public void save()
+    public void save(ActionEvent event)
     {
-        if ((event.getSource()).toString().contains("Save")) {
+        
         Character new1 = new Character();
         new1.setName("BOB");
         new1.save();
-        }
+    
         
-    }*/
+    }
     public void statGenerator(ActionEvent event) {
 
         Random rand = new Random();
