@@ -69,6 +69,9 @@ public class DnD extends Application {
     
     private Button allDie;
     private Button save;
+    
+    private TextField userInput;
+    private TextField calcOutput;
 //    private Text strength;
 //    private Text dexterity;
     @Override
@@ -468,11 +471,37 @@ public class DnD extends Application {
         save.setLayoutY(927);
         save.setOnAction(this::save);
         
+        Text diceSize = new Text("Size of Dice");
+        diceSize.setX(1085);
+        diceSize.setY(280);
+        
+        Text output = new Text("Output");
+        output.setX(1175);
+        output.setY(280);
+        
+        userInput = new TextField("0");
+        userInput.setLayoutX(1085);
+        userInput.setLayoutY(290);
+        userInput.setPrefWidth(40);
+
+        calcOutput = new TextField("");
+        calcOutput.setLayoutX(1175);
+        calcOutput.setLayoutY(290);
+        calcOutput.setPrefWidth(40);
+        
+        Button diceInput = new Button("Roll");
+        diceInput.setLayoutX(1085);
+        diceInput.setLayoutY(320);
+        
+        diceInput.setOnAction(this::numCalc);
+        
+        Group userDice =  new Group(diceSize, diceInput, userInput, calcOutput, output);
+        
         Group perceptionGroup = new Group(perceptionBox, perceptionHead, perceptionStat, perceptionDie,allDie,save);
 
         Group coreStats = new Group(strengthGroup, dexterityGroup, constitutionGroup, intellectGroup, wisdomGroup, charismaGroup, perceptionGroup);
 
-        Group root = new Group(coreStats, theifGroup, CharacterBasics, inventoryBasics);
+        Group root = new Group(coreStats, theifGroup, CharacterBasics, inventoryBasics, userDice);
 
         Scene scene = new Scene(root, 1000, 1000);
 
@@ -724,6 +753,13 @@ public class DnD extends Application {
         }
 
         return needed;
+    }
+    
+    public void numCalc(ActionEvent event){
+        System.out.println("Roll");
+        int n1 = Integer.parseInt(userInput.getText());
+        int numGen =(int)(Math.random()*n1+1);
+        calcOutput.setText(Integer.toString(numGen));
     }
 
     /**
