@@ -488,6 +488,7 @@ public class DnD extends Application {
         calcOutput.setLayoutX(1175);
         calcOutput.setLayoutY(290);
         calcOutput.setPrefWidth(40);
+        calcOutput.setEditable(false);
         
         Button diceInput = new Button("Roll");
         diceInput.setLayoutX(1085);
