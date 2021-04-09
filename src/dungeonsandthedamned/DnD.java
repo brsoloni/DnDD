@@ -471,6 +471,8 @@ public class DnD extends Application {
         save.setLayoutY(927);
         save.setOnAction(this::save);
         
+        //User Random Number
+        
         Text diceSize = new Text("Size of Dice");
         diceSize.setX(1085);
         diceSize.setY(280);
