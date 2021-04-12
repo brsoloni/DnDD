@@ -72,6 +72,8 @@ public class DnD extends Application {
     
     private TextField userInput;
     private TextField calcOutput;
+    
+    private TextField thacoBox;
 //    private Text strength;
 //    private Text dexterity;
     @Override
@@ -471,40 +473,68 @@ public class DnD extends Application {
         save.setLayoutY(927);
         save.setOnAction(this::save);
         
+        //Miscellenour Box
+        Rectangle miscOutline = new Rectangle(140, 385, 915, 275);
+        miscOutline.setStroke(Color.BLACK);
+        miscOutline.setFill(null);
+        
+        Text miscText = new Text("Miscellaneous");
+        miscText.setLayoutX(580);
+        miscText.setLayoutY(400);
+        
         //User Random Number
         
         Text diceSize = new Text("Size of Dice");
-        diceSize.setX(1085);
-        diceSize.setY(280);
+        diceSize.setX(155);
+        diceSize.setY(420);
         
         Text output = new Text("Output");
-        output.setX(1175);
-        output.setY(280);
+        output.setX(230);
+        output.setY(420);
         
         userInput = new TextField("0");
-        userInput.setLayoutX(1085);
-        userInput.setLayoutY(290);
-        userInput.setPrefWidth(40);
+        userInput.setLayoutX(155);
+        userInput.setLayoutY(425);
+        userInput.setPrefWidth(60);
 
         calcOutput = new TextField("");
-        calcOutput.setLayoutX(1175);
-        calcOutput.setLayoutY(290);
+        calcOutput.setLayoutX(230);
+        calcOutput.setLayoutY(425);
         calcOutput.setPrefWidth(40);
         calcOutput.setEditable(false);
         
         Button diceInput = new Button("Roll");
-        diceInput.setLayoutX(1085);
-        diceInput.setLayoutY(320);
+        diceInput.setLayoutX(155);
+        diceInput.setLayoutY(455);
         
         diceInput.setOnAction(this::numCalc);
         
-        Group userDice =  new Group(diceSize, diceInput, userInput, calcOutput, output);
+        Group userDice =  new Group(diceSize, diceInput, userInput, calcOutput, output, miscOutline, miscText);
+        
+        //TACH0
+        Text thacoText = new Text("TACH0");
+        thacoText.setLayoutX(300);
+        thacoText.setLayoutY(420);
+        
+        thacoBox = new TextField("");
+        thacoBox.setLayoutX(300);
+        thacoBox.setLayoutY(420);
+        thacoBox.setPrefWidth(40);
+        thacoBox.setEditable(false);
+        
+//        thacoBox.setOnAction(event -> {
+//        characterRaceStats(thacoCalc.getValue().toString);
+//        });
+        
+        Group thaco = new Group(thacoText, thacoBox);
+        
+ 
         
         Group perceptionGroup = new Group(perceptionBox, perceptionHead, perceptionStat, perceptionDie,allDie,save);
 
         Group coreStats = new Group(strengthGroup, dexterityGroup, constitutionGroup, intellectGroup, wisdomGroup, charismaGroup, perceptionGroup);
 
-        Group root = new Group(coreStats, theifGroup, CharacterBasics, inventoryBasics, userDice);
+        Group root = new Group(coreStats, theifGroup, CharacterBasics, inventoryBasics, userDice, thaco);
 
         Scene scene = new Scene(root, 1000, 1000);
 
@@ -761,8 +791,143 @@ public class DnD extends Application {
     public void numCalc(ActionEvent event){
         System.out.println("Roll");
         int n1 = Integer.parseInt(userInput.getText());
-        int numGen =(int)(Math.random()*n1+1);
-        calcOutput.setText(Integer.toString(numGen));
+        if(n1!=0){
+            int numGen =(int)(Math.random()*n1+1);
+            calcOutput.setText(Integer.toString(numGen));
+        }
+        else{
+        calcOutput.setText("0");
+        }     
+    }
+    
+    public void thacoCalc(ActionEvent event){
+        String groupT = (String) characterClass.getValue().toString();
+        int thacoNum = 20;
+        int level = 1;
+        if(groupT.contains("Cleric")|| groupT.contains("Mage")){
+            switch(level){
+                case 1:
+                case 2:
+                case 3:
+                    thacoNum = 20;
+                break;
+                case 4:
+                case 5:
+                case 6:
+                    thacoNum = 18;
+                break;
+                case 7:
+                case 8:
+                case 9:
+                    thacoNum = 16;
+                break;
+                case 10:
+                case 11:
+                case 12:
+                    thacoNum = 14;
+                break;
+                case 13:
+                case 14:
+                case 15:
+                    thacoNum = 12;
+                break;
+                case 16:
+                case 17:
+                case 18:
+                    thacoNum = 10;
+                break;
+                case 19:
+                case 20:
+                    thacoNum = 8;
+                
+            }
+        } 
+        else if(groupT.contains("Thief")|| groupT.contains("Bard")){
+            switch(level){
+                case 1:
+                case 2:
+                    thacoNum = 20;
+                break;
+                case 3:
+                case 4:
+                    thacoNum = 19;
+                break;
+                case 5:
+                case 6:
+                    thacoNum = 18;
+                break;
+                case 7:
+                case 8:
+                    thacoNum = 17;
+                break;
+                case 9:
+                case 10:
+                    thacoNum = 16;
+                break;
+                case 11:
+                case 12:
+                    thacoNum = 15;
+                break;
+                case 13:
+                case 14:
+                    thacoNum = 14;
+                break;
+                case 15:
+                case 16:
+                    thacoNum = 13;
+                break;
+                case 17:
+                case 18:
+                    thacoNum = 12;
+                break;
+                case 19:
+                case 20:
+                    thacoNum = 11;
+                break;
+            }
+ 
+        }
+        else if(groupT.contains("Fighter") || groupT.contains("Paladin") || groupT.contains("Ranger")){
+            thacoNum = level -1;
+        }
+        else if(groupT.contains("Mage")){
+            switch(level){
+                case 1:
+                case 2:
+                case 3:
+                    thacoNum = 20;
+                break;
+                case 4:
+                case 5:
+                case 6:
+                    thacoNum = 19;
+                break;
+                case 7:
+                case 8:
+                case 9:
+                    thacoNum = 18;
+                break;
+                case 10:
+                case 11:
+                case 12:
+                    thacoNum = 17;
+                break;
+                case 13:
+                case 14:
+                case 15:
+                    thacoNum = 16;
+                break;
+                case 16:
+                case 17:
+                case 18:
+                    thacoNum = 15;
+                break;
+                case 19:
+                case 20:
+                    thacoNum = 14;
+                
+            }
+        }
     }
 
     /**
