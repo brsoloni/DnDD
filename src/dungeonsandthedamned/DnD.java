@@ -802,10 +802,10 @@ public class DnD extends Application {
     
     public void thacoCalc(String groupType){
         String groupT = (String) characterClass.getValue().toString();
-        int thacoNum = 20;
+        int userLevel = Integer.parseInt(characterLevel.getText());
         int level = 1;
         if(groupT.contains("Cleric")|| groupT.contains("Mage")){
-            switch(level){
+            switch(userLevel){
                 case 1:
                 case 2:
                 case 3:
