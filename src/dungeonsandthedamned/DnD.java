@@ -803,7 +803,6 @@ public class DnD extends Application {
     public void thacoCalc(String groupType){
         String groupT = (String) characterClass.getValue().toString();
         int userLevel = Integer.parseInt(characterLevel.getText());
-        int level = 1;
         if(groupT.contains("Cleric")|| groupT.contains("Mage")){
             switch(userLevel){
                 case 1:
@@ -843,7 +842,7 @@ public class DnD extends Application {
             }
         } 
         else if(groupT.contains("Thief")|| groupT.contains("Bard")){
-            switch(level){
+            switch(userLevel){
                 case 1:
                 case 2:
                     thacoBox.setText("20");
@@ -888,10 +887,11 @@ public class DnD extends Application {
  
         }
         else if(groupT.contains("Fighter") || groupT.contains("Paladin") || groupT.contains("Ranger")){
+            int warrior;
             thacoBox.setText("");
         }
         else if(groupT.contains("Mage")){
-            switch(level){
+            switch(userLevel){
                 case 1:
                 case 2:
                 case 3:
