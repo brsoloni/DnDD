@@ -523,7 +523,7 @@ public class DnD extends Application {
         thacoBox.setEditable(false);
         
 //        thacoBox.setOnAction(event -> {
-//        characterRaceStats(thacoCalc.getValue().toString);
+//        thacoCalc(characterClass.getValue().toString);
 //        });
         
         Group thaco = new Group(thacoText, thacoBox);
@@ -800,7 +800,7 @@ public class DnD extends Application {
         }     
     }
     
-    public void thacoCalc(ActionEvent event){
+    public void thacoCalc(String groupType){
         String groupT = (String) characterClass.getValue().toString();
         int thacoNum = 20;
         int level = 1;
@@ -809,36 +809,36 @@ public class DnD extends Application {
                 case 1:
                 case 2:
                 case 3:
-                    thacoNum = 20;
+                    thacoBox.setText("20");
                 break;
                 case 4:
                 case 5:
                 case 6:
-                    thacoNum = 18;
+                    thacoBox.setText("18");
                 break;
                 case 7:
                 case 8:
                 case 9:
-                    thacoNum = 16;
+                    thacoBox.setText("16");
                 break;
                 case 10:
                 case 11:
                 case 12:
-                    thacoNum = 14;
+                    thacoBox.setText("14");
                 break;
                 case 13:
                 case 14:
                 case 15:
-                    thacoNum = 12;
+                    thacoBox.setText("12");
                 break;
                 case 16:
                 case 17:
                 case 18:
-                    thacoNum = 10;
+                    thacoBox.setText("10");
                 break;
                 case 19:
                 case 20:
-                    thacoNum = 8;
+                    thacoBox.setText("8");
                 
             }
         } 
@@ -846,85 +846,85 @@ public class DnD extends Application {
             switch(level){
                 case 1:
                 case 2:
-                    thacoNum = 20;
+                    thacoBox.setText("20");
                 break;
                 case 3:
                 case 4:
-                    thacoNum = 19;
+                    thacoBox.setText("19");
                 break;
                 case 5:
                 case 6:
-                    thacoNum = 18;
+                    thacoBox.setText("18");
                 break;
                 case 7:
                 case 8:
-                    thacoNum = 17;
+                    thacoBox.setText("17");
                 break;
                 case 9:
                 case 10:
-                    thacoNum = 16;
+                    thacoBox.setText("16");
                 break;
                 case 11:
                 case 12:
-                    thacoNum = 15;
+                    thacoBox.setText("15");
                 break;
                 case 13:
                 case 14:
-                    thacoNum = 14;
+                    thacoBox.setText("14");
                 break;
                 case 15:
                 case 16:
-                    thacoNum = 13;
+                    thacoBox.setText("13");
                 break;
                 case 17:
                 case 18:
-                    thacoNum = 12;
+                    thacoBox.setText("12");
                 break;
                 case 19:
                 case 20:
-                    thacoNum = 11;
+                    thacoBox.setText("11");
                 break;
             }
  
         }
         else if(groupT.contains("Fighter") || groupT.contains("Paladin") || groupT.contains("Ranger")){
-            thacoNum = level -1;
+            thacoBox.setText("");
         }
         else if(groupT.contains("Mage")){
             switch(level){
                 case 1:
                 case 2:
                 case 3:
-                    thacoNum = 20;
+                    thacoBox.setText("20");
                 break;
                 case 4:
                 case 5:
                 case 6:
-                    thacoNum = 19;
+                    thacoBox.setText("19");
                 break;
                 case 7:
                 case 8:
                 case 9:
-                    thacoNum = 18;
+                    thacoBox.setText("18");
                 break;
                 case 10:
                 case 11:
                 case 12:
-                    thacoNum = 17;
+                    thacoBox.setText("17");
                 break;
                 case 13:
                 case 14:
                 case 15:
-                    thacoNum = 16;
+                    thacoBox.setText("16");
                 break;
                 case 16:
                 case 17:
                 case 18:
-                    thacoNum = 15;
+                    thacoBox.setText("14");
                 break;
                 case 19:
                 case 20:
-                    thacoNum = 14;
+                    thacoBox.setText("13");
                 
             }
         }
