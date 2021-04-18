@@ -235,9 +235,7 @@ public class DnD extends Application {
         setVarious.setId("setVarious");
         setVarious.setLayoutX(1005);
         setVarious.setLayoutY(40);
-        setVarious.setOnAction(event -> {
-            characterRaceStats(characterRace.getValue().toString());
-        });
+   setVarious.setOnAction(this::randomCharacter);
 
         Group CharacterBasics = new Group(characterBasicBox, characterName, characterAgeLabel, characterAge, characterGender, characterLevelLabel, characterLevel,
                 characterRace, characterClass, heightLabel, characterHeight, weightLabel, characterWeight, setVarious);
@@ -461,70 +459,72 @@ public class DnD extends Application {
         perceptionDie.setLayoutY(865);
         perceptionDie.setOnAction(this::statGenerator);
 
-        allDie = new Button("Roleall");
+         allDie = new Button("Role all");
         allDie.setId("allrole");
-        allDie.setLayoutX(62);
-        allDie.setLayoutY(900);
+        allDie.setLayoutX(605);
+        allDie.setLayoutY(420);
         allDie.setOnAction(this::statGenerator);
         
         save = new Button("Save");
         save.setId("Save");
-        save.setLayoutX(62);
-        save.setLayoutY(927);
+        save.setLayoutX(675);
+        save.setLayoutY(420);
         save.setOnAction(this::save);
         
         //Miscellenour Box
-        Rectangle miscOutline = new Rectangle(140, 385, 915, 275);
+        Rectangle miscOutline = new Rectangle(140, 390, 915, 75);
         miscOutline.setStroke(Color.BLACK);
         miscOutline.setFill(null);
         
         Text miscText = new Text("Miscellaneous");
         miscText.setLayoutX(580);
-        miscText.setLayoutY(400);
+        miscText.setLayoutY(410);
         
         //User Random Number
         
-        Text diceSize = new Text("Size of Dice");
+        Text diceSize = new Text("Size of Die");
         diceSize.setX(155);
-        diceSize.setY(420);
+        diceSize.setY(438);
         
         Text output = new Text("Output");
-        output.setX(230);
-        output.setY(420);
+        output.setX(325);
+        output.setY(438);
         
         userInput = new TextField("0");
-        userInput.setLayoutX(155);
-        userInput.setLayoutY(425);
-        userInput.setPrefWidth(60);
+        userInput.setLayoutX(218);
+        userInput.setLayoutY(420);
+        userInput.setPrefWidth(42);
+        userInput.setPrefHeight(5);
 
         calcOutput = new TextField("");
-        calcOutput.setLayoutX(230);
-        calcOutput.setLayoutY(425);
-        calcOutput.setPrefWidth(40);
+        calcOutput.setLayoutX(368);
+        calcOutput.setLayoutY(420);
+        calcOutput.setPrefWidth(42);
+        calcOutput.setPrefHeight(5);
         calcOutput.setEditable(false);
         
         Button diceInput = new Button("Roll");
-        diceInput.setLayoutX(155);
-        diceInput.setLayoutY(455);
+        diceInput.setLayoutX(275);
+        diceInput.setLayoutY(420);
         
         diceInput.setOnAction(this::numCalc);
         
         Group userDice =  new Group(diceSize, diceInput, userInput, calcOutput, output, miscOutline, miscText);
         
         //TACH0
-        Text thacoText = new Text("TACH0");
-        thacoText.setLayoutX(300);
-        thacoText.setLayoutY(420);
+        Text thacoText = new Text("THACH0");
+        thacoText.setLayoutX(425);
+        thacoText.setLayoutY(438);
         
         thacoBox = new TextField("");
-        thacoBox.setLayoutX(300);
+        thacoBox.setLayoutX(480);
         thacoBox.setLayoutY(420);
         thacoBox.setPrefWidth(40);
         thacoBox.setEditable(false);
         
         Button thacoBut = new Button("Update");
-        thacoBut.setLayoutX(300);
-        thacoBut.setLayoutY(455);
+        thacoBut.setLayoutX(535);
+        thacoBut.setLayoutY(420);
         thacoBut.setOnAction(this::thacoCalc);
         
 //        thacoBox.setOnAction(event -> {
@@ -558,6 +558,774 @@ public class DnD extends Application {
     
         
     }
+    public void randomCharacter(ActionEvent event) {
+        String chosenGender = characterGender.getValue().toString();
+        String chosenRace = characterRace.getValue().toString();
+        String chosenClass = characterClass.getValue().toString();
+        String chosenAge = characterAge.getText();
+        if (Integer.parseInt(strengthStat.getText()) == 0 || strengthStat.getText().trim() == null) {
+            strengthStat.setText(total());
+        }
+        if (Integer.parseInt(dexterityStat.getText()) == 0) {
+            dexterityStat.setText(total());
+        }
+        if (Integer.parseInt(constitutionStat.getText()) == 0) {
+            constitutionStat.setText(total());
+        }
+        if (Integer.parseInt(intellectStat.getText()) == 0) {
+            intellectStat.setText(total());
+        }
+        if (Integer.parseInt(wisdomStat.getText()) == 0) {
+            wisdomStat.setText(total());
+        }
+        if (Integer.parseInt(charismaStat.getText()) == 0) {
+            charismaStat.setText(total());
+        }
+        if (Integer.parseInt(perceptionStat.getText()) == 0) {
+            int result = (Integer.parseInt(wisdomStat.getText()) + Integer.parseInt(intellectStat.getText())) / 2;
+            perceptionStat.setText("" + result);
+        }
+        if (chosenGender.contains("Sex")) {
+            Random randBinary = new Random();
+            int maxInt = 2;
+            int randGender = randBinary.nextInt(maxInt);
+            if (randGender == 1) {
+                characterGender.setValue("M");
+            } else {
+                characterGender.setValue("F");
+            }
+        }
+        Random ranAge = new Random();
+        if (chosenRace.contains("Race")) {
+            Random randType = new Random();
+            int maxInt = 6;
+            int randRace = randType.nextInt(maxInt);
+            if (randRace == 1) {
+                characterRace.setValue("Human");
+                if (chosenAge.contains("0")) {
+                    int base = 15;
+                    int randAge1 = ranAge.nextInt(4);
+                    int dAge = base + randAge1;
+                    String sAge = String.valueOf(dAge);
+                    characterAge.setText(sAge);
+                }
+                if (characterGender.getValue() == "M") {
+                    int baseH = 60;
+                    int randH1 = randType.nextInt(10);
+                    int randH2 = randType.nextInt(10);
+                    int humanMaleH = baseH + randH1 + randH2;
+                    characterHeight.setText(String.valueOf(humanMaleH));
+                    int baseW = 140;
+                    int randW1 = ranAge.nextInt(10);
+                    int randW2 = ranAge.nextInt(10);
+                    int randW3 = ranAge.nextInt(10);
+                    int randW4 = ranAge.nextInt(10);
+                    int randW5 = ranAge.nextInt(10);
+                    int randW6 = ranAge.nextInt(10);
+                    int maleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5 + randW6;
+                    characterWeight.setText(String.valueOf(maleW));
+                } else {
+                    int baseH = 59;
+                    int randH1 = randType.nextInt(10);
+                    int randH2 = randType.nextInt(10);
+                    int humanMaleH = baseH + randH1 + randH2;
+                    characterHeight.setText(String.valueOf(humanMaleH));
+                    int baseW = 100;
+                    int randW1 = ranAge.nextInt(10);
+                    int randW2 = ranAge.nextInt(10);
+                    int randW3 = ranAge.nextInt(10);
+                    int randW4 = ranAge.nextInt(10);
+                    int randW5 = ranAge.nextInt(10);
+                    int randW6 = ranAge.nextInt(10);
+                    int femaleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5 + randW6;
+                    characterWeight.setText(String.valueOf(femaleW));
+                }
+            } else if (randRace == 2) {
+                characterRace.setValue("Halfling");
+                if (chosenAge.contains("0")) {
+                    int base = 20;
+                    int randAge1 = ranAge.nextInt(4);
+                    int randAge2 = ranAge.nextInt(4);
+                    int randAge3 = ranAge.nextInt(4);
+                    int dAge = base + randAge1 + randAge2 + randAge3;
+                    String sAge = String.valueOf(dAge);
+                    characterAge.setText(sAge);
+                }
+                if (characterGender.getValue() == "M") {
+                    int baseH = 32;
+                    int randH1 = randType.nextInt(8);
+                    int randH2 = randType.nextInt(8);
+                    int maleH = baseH + randH1 + randH2;
+                    characterHeight.setText(String.valueOf(maleH));
+                    int baseW = 52;
+                    int randW1 = ranAge.nextInt(4);
+                    int randW2 = ranAge.nextInt(4);
+                    int randW3 = ranAge.nextInt(4);
+                    int randW4 = ranAge.nextInt(4);
+                    int randW5 = ranAge.nextInt(4);
+                    int maleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5;
+                    characterWeight.setText(String.valueOf(maleW));
+                } else {
+                    int baseH = 30;
+                    int randH1 = randType.nextInt(8);
+                    int randH2 = randType.nextInt(8);
+                    int femaleH = baseH + randH1 + randH2;
+                    characterHeight.setText(String.valueOf(femaleH));
+                    int baseW = 48;
+                    int randW1 = ranAge.nextInt(4);
+                    int randW2 = ranAge.nextInt(4);
+                    int randW3 = ranAge.nextInt(4);
+                    int randW4 = ranAge.nextInt(4);
+                    int randW5 = ranAge.nextInt(4);
+                    int femaleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5;
+                    characterWeight.setText(String.valueOf(femaleW));
+                }
+            } else if (randRace == 3) {
+                characterRace.setValue("Half-Elf");
+                if (chosenAge.contains("0")) {
+                    int base = 15;
+                    int randAge1 = ranAge.nextInt(6);
+                    int dAge = base + randAge1;
+                    String sAge = String.valueOf(dAge);
+                    characterAge.setText(sAge);
+                }
+                if (characterGender.getValue() == "M") {
+                    int baseH = 60;
+                    int randH1 = randType.nextInt(6);
+                    int randH2 = randType.nextInt(6);
+                    int maleH = baseH + randH1 + randH2;
+                    characterHeight.setText(String.valueOf(maleH));
+                    int baseW = 110;
+                    int randW1 = ranAge.nextInt(12);
+                    int randW2 = ranAge.nextInt(12);
+                    int randW3 = ranAge.nextInt(12);
+                    int maleW = baseW + randW1 + randW2 + randW3;
+                    characterWeight.setText(String.valueOf(maleW));
+                } else {
+                    int baseH = 58;
+                    int randH1 = randType.nextInt(6);
+                    int randH2 = randType.nextInt(6);
+                    int femaleH = baseH + randH1 + randH2;
+                    characterHeight.setText(String.valueOf(femaleH));
+                    int baseW = 85;
+                    int randW1 = ranAge.nextInt(12);
+                    int randW2 = ranAge.nextInt(12);
+                    int randW3 = ranAge.nextInt(12);
+                    int femaleW = baseW + randW1 + randW2 + randW3;
+                    characterWeight.setText(String.valueOf(femaleW));
+                }
+            } else if (randRace == 4) {
+                characterRace.setValue("Elf");
+                if (chosenAge.contains("0")) {
+                    int base = 100;
+                    int randAge1 = ranAge.nextInt(6);
+                    int randAge2 = ranAge.nextInt(6);
+                    int randAge3 = ranAge.nextInt(6);
+                    int randAge4 = ranAge.nextInt(6);
+                    int randAge5 = ranAge.nextInt(6);
+                    int dAge = base + randAge1 + randAge2 + randAge3 + randAge4 + randAge5;
+                    String sAge = String.valueOf(dAge);
+                    characterAge.setText(sAge);
+                }
+                if (characterGender.getValue() == "M") {
+                    int baseH = 55;
+                    int randH1 = randType.nextInt(10);
+                    int maleH = baseH + randH1;
+                    characterHeight.setText(String.valueOf(maleH));
+                    int baseW = 90;
+                    int randW1 = ranAge.nextInt(10);
+                    int randW2 = ranAge.nextInt(10);
+                    int randW3 = ranAge.nextInt(10);
+                    int maleW = baseW + randW1 + randW2 + randW3;
+                    characterWeight.setText(String.valueOf(maleW));
+                } else {
+                    int baseH = 50;
+                    int randH1 = randType.nextInt(10);
+                    int femaleH = baseH + randH1;
+                    characterHeight.setText(String.valueOf(femaleH));
+                    int baseW = 70;
+                    int randW1 = ranAge.nextInt(10);
+                    int randW2 = ranAge.nextInt(10);
+                    int randW3 = ranAge.nextInt(10);
+                    int femaleW = baseW + randW1 + randW2 + randW3;
+                    characterWeight.setText(String.valueOf(femaleW));
+                }
+            } else if (randRace == 5) {
+                characterRace.setValue("Gnome");
+                if (chosenAge.contains("0")) {
+                    int base = 60;
+                    int randAge1 = ranAge.nextInt(12);
+                    int randAge2 = ranAge.nextInt(12);
+                    int randAge3 = ranAge.nextInt(12);
+                    int dAge = base + randAge1 + randAge2 + randAge3;
+                    String sAge = String.valueOf(dAge);
+                    characterAge.setText(sAge);
+                }
+                if (characterGender.getValue() == "M") {
+                    int baseH = 38;
+                    int randH1 = randType.nextInt(6);
+                    int maleH = baseH + randH1;
+                    characterHeight.setText(String.valueOf(maleH));
+                    int baseW = 72;
+                    int randW1 = ranAge.nextInt(4);
+                    int randW2 = ranAge.nextInt(4);
+                    int randW3 = ranAge.nextInt(4);
+                    int randW4 = ranAge.nextInt(4);
+                    int randW5 = ranAge.nextInt(4);
+                    int maleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5;
+                    characterWeight.setText(String.valueOf(maleW));
+                } else {
+                    int baseH = 36;
+                    int randH1 = randType.nextInt(6);
+                    int femaleH = baseH + randH1;
+                    characterHeight.setText(String.valueOf(femaleH));
+                    int baseW = 68;
+                    int randW1 = ranAge.nextInt(4);
+                    int randW2 = ranAge.nextInt(4);
+                    int randW3 = ranAge.nextInt(4);
+                    int randW4 = ranAge.nextInt(4);
+                    int randW5 = ranAge.nextInt(4);
+                    int femaleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5;
+                    characterWeight.setText(String.valueOf(femaleW));
+                }
+            } else if (randRace == 6) {
+                characterRace.setValue("Dwarf");
+                if (chosenAge.contains("0")) {
+                    int base = 40;
+                    int randAge1 = ranAge.nextInt(6);
+                    int randAge2 = ranAge.nextInt(6);
+                    int randAge3 = ranAge.nextInt(6);
+                    int randAge4 = ranAge.nextInt(6);
+                    int randAge5 = ranAge.nextInt(6);
+                    int dAge = base + randAge1 + randAge2 + randAge3 + randAge4 + randAge5;
+                    String sAge = String.valueOf(dAge);
+                    characterAge.setText(sAge);
+                }
+                if (characterGender.getValue() == "M") {
+                    int baseH = 43;
+                    int randH1 = randType.nextInt(10);
+                    int maleH = baseH + randH1;
+                    characterHeight.setText(String.valueOf(maleH));
+                    int baseW = 130;
+                    int randW1 = ranAge.nextInt(10);
+                    int randW2 = ranAge.nextInt(10);
+                    int randW3 = ranAge.nextInt(10);
+                    int randW4 = ranAge.nextInt(10);
+                    int maleW = baseW + randW1 + randW2 + randW3 + randW4;
+                    characterWeight.setText(String.valueOf(maleW));
+                } else {
+                    int baseH = 41;
+                    int randH1 = randType.nextInt(10);
+                    int femaleH = baseH + randH1;
+                    characterHeight.setText(String.valueOf(femaleH));
+                    int baseW = 105;
+                    int randW1 = ranAge.nextInt(10);
+                    int randW2 = ranAge.nextInt(10);
+                    int randW3 = ranAge.nextInt(10);
+                    int randW4 = ranAge.nextInt(10);
+                    int femaleW = baseW + randW1 + randW2 + randW3 + randW4;
+                    characterWeight.setText(String.valueOf(femaleW));
+                }
+            }
+        }
+        if (chosenRace.contains("Human")) {
+            int base = 15;
+            int randAge1 = ranAge.nextInt(4);
+            int dAge = base + randAge1;
+            String sAge = String.valueOf(dAge);
+            characterAge.setText(sAge);
+            if (characterGender.getValue() == "M") {
+                int baseH = 60;
+                int randH1 = ranAge.nextInt(10);
+                int randH2 = ranAge.nextInt(10);
+                int humanMaleH = baseH + randH1 + randH2;
+                characterHeight.setText(String.valueOf(humanMaleH));
+                int baseW = 140;
+                int randW1 = ranAge.nextInt(10);
+                int randW2 = ranAge.nextInt(10);
+                int randW3 = ranAge.nextInt(10);
+                int randW4 = ranAge.nextInt(10);
+                int randW5 = ranAge.nextInt(10);
+                int randW6 = ranAge.nextInt(10);
+                int maleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5 + randW6;
+                characterWeight.setText(String.valueOf(maleW));
+            } else {
+                int baseH = 59;
+                int randH1 = ranAge.nextInt(10);
+                int randH2 = ranAge.nextInt(10);
+                int humanMaleH = baseH + randH1 + randH2;
+                characterHeight.setText(String.valueOf(humanMaleH));
+                int baseW = 100;
+                int randW1 = ranAge.nextInt(10);
+                int randW2 = ranAge.nextInt(10);
+                int randW3 = ranAge.nextInt(10);
+                int randW4 = ranAge.nextInt(10);
+                int randW5 = ranAge.nextInt(10);
+                int randW6 = ranAge.nextInt(10);
+                int femaleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5 + randW6;
+                characterWeight.setText(String.valueOf(femaleW));
+            }
+        }
+        if (chosenRace.contains("Halfling")) {
+            int base = 20;
+            int randAge1 = ranAge.nextInt(4);
+            int randAge2 = ranAge.nextInt(4);
+            int randAge3 = ranAge.nextInt(4);
+            int dAge = base + randAge1 + randAge2 + randAge3;
+            String sAge = String.valueOf(dAge);
+            characterAge.setText(sAge);
+            if (characterGender.getValue() == "M") {
+                int baseH = 32;
+                int randH1 = ranAge.nextInt(8);
+                int randH2 = ranAge.nextInt(8);
+                int maleH = baseH + randH1 + randH2;
+                characterHeight.setText(String.valueOf(maleH));
+                int baseW = 52;
+                int randW1 = ranAge.nextInt(4);
+                int randW2 = ranAge.nextInt(4);
+                int randW3 = ranAge.nextInt(4);
+                int randW4 = ranAge.nextInt(4);
+                int randW5 = ranAge.nextInt(4);
+                int maleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5;
+                characterWeight.setText(String.valueOf(maleW));
+            } else {
+                int baseH = 30;
+                int randH1 = ranAge.nextInt(8);
+                int randH2 = ranAge.nextInt(8);
+                int femaleH = baseH + randH1 + randH2;
+                characterHeight.setText(String.valueOf(femaleH));
+                int baseW = 48;
+                int randW1 = ranAge.nextInt(4);
+                int randW2 = ranAge.nextInt(4);
+                int randW3 = ranAge.nextInt(4);
+                int randW4 = ranAge.nextInt(4);
+                int randW5 = ranAge.nextInt(4);
+                int femaleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5;
+                characterWeight.setText(String.valueOf(femaleW));
+            }
+        }
+        if (chosenRace.contains("Half-Elf")) {
+            int base = 15;
+            int randAge1 = ranAge.nextInt(6);
+            int dAge = base + randAge1;
+            String sAge = String.valueOf(dAge);
+            characterAge.setText(sAge);
+            if (characterGender.getValue() == "M") {
+                int baseH = 60;
+                int randH1 = ranAge.nextInt(6);
+                int randH2 = ranAge.nextInt(6);
+                int maleH = baseH + randH1 + randH2;
+                characterHeight.setText(String.valueOf(maleH));
+                int baseW = 110;
+                int randW1 = ranAge.nextInt(12);
+                int randW2 = ranAge.nextInt(12);
+                int randW3 = ranAge.nextInt(12);
+                int maleW = baseW + randW1 + randW2 + randW3;
+                characterWeight.setText(String.valueOf(maleW));
+            } else {
+                int baseH = 58;
+                int randH1 = ranAge.nextInt(6);
+                int randH2 = ranAge.nextInt(6);
+                int femaleH = baseH + randH1 + randH2;
+                characterHeight.setText(String.valueOf(femaleH));
+                int baseW = 85;
+                int randW1 = ranAge.nextInt(12);
+                int randW2 = ranAge.nextInt(12);
+                int randW3 = ranAge.nextInt(12);
+                int femaleW = baseW + randW1 + randW2 + randW3;
+                characterWeight.setText(String.valueOf(femaleW));
+            }
+        }
+        if (chosenRace.contains("Elf")) {
+            int base = 100;
+            int randAge1 = ranAge.nextInt(6);
+            int randAge2 = ranAge.nextInt(6);
+            int randAge3 = ranAge.nextInt(6);
+            int randAge4 = ranAge.nextInt(6);
+            int randAge5 = ranAge.nextInt(6);
+            int dAge = base + randAge1 + randAge2 + randAge3 + randAge4 + randAge5;
+            String sAge = String.valueOf(dAge);
+            characterAge.setText(sAge);
+            if (characterGender.getValue() == "M") {
+                int baseH = 55;
+                int randH1 = ranAge.nextInt(10);
+                int maleH = baseH + randH1;
+                characterHeight.setText(String.valueOf(maleH));
+                int baseW = 90;
+                int randW1 = ranAge.nextInt(10);
+                int randW2 = ranAge.nextInt(10);
+                int randW3 = ranAge.nextInt(10);
+                int maleW = baseW + randW1 + randW2 + randW3;
+                characterWeight.setText(String.valueOf(maleW));
+            } else {
+                int baseH = 50;
+                int randH1 = ranAge.nextInt(10);
+                int femaleH = baseH + randH1;
+                characterHeight.setText(String.valueOf(femaleH));
+                int baseW = 70;
+                int randW1 = ranAge.nextInt(10);
+                int randW2 = ranAge.nextInt(10);
+                int randW3 = ranAge.nextInt(10);
+                int femaleW = baseW + randW1 + randW2 + randW3;
+                characterWeight.setText(String.valueOf(femaleW));
+            }
+        }
+        if (chosenRace.contains("Gnome")) {
+            int base = 60;
+            int randAge1 = ranAge.nextInt(12);
+            int randAge2 = ranAge.nextInt(12);
+            int randAge3 = ranAge.nextInt(12);
+            int dAge = base + randAge1 + randAge2 + randAge3;
+            String sAge = String.valueOf(dAge);
+            characterAge.setText(sAge);
+            if (characterGender.getValue() == "M") {
+                int baseH = 38;
+                int randH1 = ranAge.nextInt(6);
+                int maleH = baseH + randH1;
+                characterHeight.setText(String.valueOf(maleH));
+                int baseW = 72;
+                int randW1 = ranAge.nextInt(4);
+                int randW2 = ranAge.nextInt(4);
+                int randW3 = ranAge.nextInt(4);
+                int randW4 = ranAge.nextInt(4);
+                int randW5 = ranAge.nextInt(4);
+                int maleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5;
+                characterWeight.setText(String.valueOf(maleW));
+            } else {
+                int baseH = 36;
+                int randH1 = ranAge.nextInt(6);
+                int femaleH = baseH + randH1;
+                characterHeight.setText(String.valueOf(femaleH));
+                int baseW = 68;
+                int randW1 = ranAge.nextInt(4);
+                int randW2 = ranAge.nextInt(4);
+                int randW3 = ranAge.nextInt(4);
+                int randW4 = ranAge.nextInt(4);
+                int randW5 = ranAge.nextInt(4);
+                int femaleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5;
+                characterWeight.setText(String.valueOf(femaleW));
+            }
+        }
+        if (chosenRace.contains("Dwarf")) {
+            int base = 40;
+            int randAge1 = ranAge.nextInt(6);
+            int randAge2 = ranAge.nextInt(6);
+            int randAge3 = ranAge.nextInt(6);
+            int randAge4 = ranAge.nextInt(6);
+            int randAge5 = ranAge.nextInt(6);
+            int dAge = base + randAge1 + randAge2 + randAge3 + randAge4 + randAge5;
+            String sAge = String.valueOf(dAge);
+            characterAge.setText(sAge);
+            if (characterGender.getValue() == "M") {
+                int baseH = 43;
+                int randH1 = ranAge.nextInt(10);
+                int maleH = baseH + randH1;
+                characterHeight.setText(String.valueOf(maleH));
+                int baseW = 130;
+                int randW1 = ranAge.nextInt(10);
+                int randW2 = ranAge.nextInt(10);
+                int randW3 = ranAge.nextInt(10);
+                int randW4 = ranAge.nextInt(10);
+                int maleW = baseW + randW1 + randW2 + randW3 + randW4;
+                characterWeight.setText(String.valueOf(maleW));
+            } else {
+                int baseH = 41;
+                int randH1 = ranAge.nextInt(10);
+                int femaleH = baseH + randH1;
+                characterHeight.setText(String.valueOf(femaleH));
+                int baseW = 105;
+                int randW1 = ranAge.nextInt(10);
+                int randW2 = ranAge.nextInt(10);
+                int randW3 = ranAge.nextInt(10);
+                int randW4 = ranAge.nextInt(10);
+                int femaleW = baseW + randW1 + randW2 + randW3 + randW4;
+                characterWeight.setText(String.valueOf(femaleW));
+            }
+        }
+        if (chosenAge.contains("0")) {
+            if (chosenRace.contains("Human")) {
+                int base = 15;
+                int randAge1 = ranAge.nextInt(4);
+                int dAge = base + randAge1;
+                String sAge = String.valueOf(dAge);
+                characterAge.setText(sAge);
+            } else if (chosenRace.contains("Halfling")) {
+                int base = 20;
+                int randAge1 = ranAge.nextInt(4);
+                int randAge2 = ranAge.nextInt(4);
+                int randAge3 = ranAge.nextInt(4);
+                int dAge = base + randAge1 + randAge2 + randAge3;
+                String sAge = String.valueOf(dAge);
+                characterAge.setText(sAge);
+            } else if (chosenRace.contains("Half-Elf")) {
+                int base = 15;
+                int randAge1 = ranAge.nextInt(6);
+                int dAge = base + randAge1;
+                String sAge = String.valueOf(dAge);
+                characterAge.setText(sAge);
+            } else if (chosenRace.contains("Elf")) {
+                int base = 100;
+                int randAge1 = ranAge.nextInt(6);
+                int randAge2 = ranAge.nextInt(6);
+                int randAge3 = ranAge.nextInt(6);
+                int randAge4 = ranAge.nextInt(6);
+                int randAge5 = ranAge.nextInt(6);
+                int dAge = base + randAge1 + randAge2 + randAge3 + randAge4 + randAge5;
+                String sAge = String.valueOf(dAge);
+                characterAge.setText(sAge);
+            } else if (chosenRace.contains("Gnome")) {
+                int base = 60;
+                int randAge1 = ranAge.nextInt(12);
+                int randAge2 = ranAge.nextInt(12);
+                int randAge3 = ranAge.nextInt(12);
+                int dAge = base + randAge1 + randAge2 + randAge3;
+                String sAge = String.valueOf(dAge);
+                characterAge.setText(sAge);
+            } else if (chosenRace.contains("Dwarf")) {
+                int base = 40;
+                int randAge1 = ranAge.nextInt(6);
+                int randAge2 = ranAge.nextInt(6);
+                int randAge3 = ranAge.nextInt(6);
+                int randAge4 = ranAge.nextInt(6);
+                int randAge5 = ranAge.nextInt(6);
+                int dAge = base + randAge1 + randAge2 + randAge3 + randAge4 + randAge5;
+                String sAge = String.valueOf(dAge);
+                characterAge.setText(sAge);
+            }
+        }
+        if (characterWeight.getText().equals("0")) {
+            if (chosenRace.contains("Human")) {
+                if (characterGender.getValue() == "M") {
+                    int baseW = 140;
+                    int randW1 = ranAge.nextInt(10);
+                    int randW2 = ranAge.nextInt(10);
+                    int randW3 = ranAge.nextInt(10);
+                    int randW4 = ranAge.nextInt(10);
+                    int randW5 = ranAge.nextInt(10);
+                    int randW6 = ranAge.nextInt(10);
+                    int maleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5 + randW6;
+                    characterWeight.setText(String.valueOf(maleW));
+                } else {
+                    int baseW = 100;
+                    int randW1 = ranAge.nextInt(10);
+                    int randW2 = ranAge.nextInt(10);
+                    int randW3 = ranAge.nextInt(10);
+                    int randW4 = ranAge.nextInt(10);
+                    int randW5 = ranAge.nextInt(10);
+                    int randW6 = ranAge.nextInt(10);
+                    int femaleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5 + randW6;
+                    characterWeight.setText(String.valueOf(femaleW));
+                }
+            } else if (chosenRace.contains("Halfling")) {
+                if (characterGender.getValue() == "M") {
+                    int baseW = 52;
+                    int randW1 = ranAge.nextInt(4);
+                    int randW2 = ranAge.nextInt(4);
+                    int randW3 = ranAge.nextInt(4);
+                    int randW4 = ranAge.nextInt(4);
+                    int randW5 = ranAge.nextInt(4);
+                    int maleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5;
+                    characterWeight.setText(String.valueOf(maleW));
+                } else {
+                    int baseW = 48;
+                    int randW1 = ranAge.nextInt(4);
+                    int randW2 = ranAge.nextInt(4);
+                    int randW3 = ranAge.nextInt(4);
+                    int randW4 = ranAge.nextInt(4);
+                    int randW5 = ranAge.nextInt(4);
+                    int femaleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5;
+                    characterWeight.setText(String.valueOf(femaleW));
+                }
+            } else if (chosenRace.contains("Half-Elf")) {
+                if (characterGender.getValue() == "M") {
+                    int baseW = 110;
+                    int randW1 = ranAge.nextInt(12);
+                    int randW2 = ranAge.nextInt(12);
+                    int randW3 = ranAge.nextInt(12);
+                    int maleW = baseW + randW1 + randW2 + randW3;
+                    characterWeight.setText(String.valueOf(maleW));
+                } else {
+                    int baseW = 85;
+                    int randW1 = ranAge.nextInt(12);
+                    int randW2 = ranAge.nextInt(12);
+                    int randW3 = ranAge.nextInt(12);
+                    int femaleW = baseW + randW1 + randW2 + randW3;
+                    characterWeight.setText(String.valueOf(femaleW));
+                }
+            } else if (chosenRace.contains("Elf")) {
+                if (characterGender.getValue() == "M") {
+                    int baseW = 90;
+                    int randW1 = ranAge.nextInt(10);
+                    int randW2 = ranAge.nextInt(10);
+                    int randW3 = ranAge.nextInt(10);
+                    int maleW = baseW + randW1 + randW2 + randW3;
+                    characterWeight.setText(String.valueOf(maleW));
+                } else {
+                    int baseW = 70;
+                    int randW1 = ranAge.nextInt(10);
+                    int randW2 = ranAge.nextInt(10);
+                    int randW3 = ranAge.nextInt(10);
+                    int femaleW = baseW + randW1 + randW2 + randW3;
+                    characterWeight.setText(String.valueOf(femaleW));
+                }
+            } else if (chosenRace.contains("Gnome")) {
+                if (characterGender.getValue() == "M") {
+                    int baseW = 72;
+                    int randW1 = ranAge.nextInt(4);
+                    int randW2 = ranAge.nextInt(4);
+                    int randW3 = ranAge.nextInt(4);
+                    int randW4 = ranAge.nextInt(4);
+                    int randW5 = ranAge.nextInt(4);
+                    int maleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5;
+                    characterWeight.setText(String.valueOf(maleW));
+                } else {
+                    int baseW = 68;
+                    int randW1 = ranAge.nextInt(4);
+                    int randW2 = ranAge.nextInt(4);
+                    int randW3 = ranAge.nextInt(4);
+                    int randW4 = ranAge.nextInt(4);
+                    int randW5 = ranAge.nextInt(4);
+                    int femaleW = baseW + randW1 + randW2 + randW3 + randW4 + randW5;
+                    characterWeight.setText(String.valueOf(femaleW));
+                }
+            } else if (chosenRace.contains("Dwarf")) {
+                if (characterGender.getValue() == "M") {
+                    int baseW = 130;
+                    int randW1 = ranAge.nextInt(10);
+                    int randW2 = ranAge.nextInt(10);
+                    int randW3 = ranAge.nextInt(10);
+                    int randW4 = ranAge.nextInt(10);
+                    int maleW = baseW + randW1 + randW2 + randW3 + randW4;
+                    characterWeight.setText(String.valueOf(maleW));
+                } else {
+                    int baseW = 105;
+                    int randW1 = ranAge.nextInt(10);
+                    int randW2 = ranAge.nextInt(10);
+                    int randW3 = ranAge.nextInt(10);
+                    int randW4 = ranAge.nextInt(10);
+                    int femaleW = baseW + randW1 + randW2 + randW3 + randW4;
+                    characterWeight.setText(String.valueOf(femaleW));
+                }
+            }
+        }
+        if (chosenClass.contains("Class")) {
+            Random randClass = new Random();
+            int maxInt = 12;
+            int randClasser = randClass.nextInt(maxInt);
+            if (randClasser == 1) {
+                characterClass.setValue("Fighter");
+            } else if (randClasser == 2) {
+                characterClass.setValue("Paladin");
+            } else if (randClasser == 3) {
+                characterClass.setValue("Ranger");
+            } else if (randClasser == 4) {
+                characterClass.setValue("Mage");
+            } else if (randClasser == 5) {
+                characterClass.setValue("Specialist");
+            } else if (randClasser == 6) {
+                characterClass.setValue("Illusionist");
+            } else if (randClasser == 7) {
+                characterClass.setValue("Cleric");
+            } else if (randClasser == 8) {
+                characterClass.setValue("Mythoi");
+            } else if (randClasser == 9) {
+                characterClass.setValue("Druid");
+            } else if (randClasser == 10) {
+                characterClass.setValue("Theif");
+            } else if (randClasser == 11) {
+                characterClass.setValue("Bard");
+            } else if (randClasser == 12) {
+                characterClass.setValue("Multi-Class");
+            }
+        }
+        if (characterName.getText().contains("Character Name")) {
+            characterName.setText("Lazy the Powerful");
+        }
+        if (characterHeight.getText().equals("0")) {
+            if (chosenRace.contains("Human")) {
+                if (characterGender.getValue() == "M") {
+                    int baseH = 60;
+                    int randH1 = ranAge.nextInt(10);
+                    int randH2 = ranAge.nextInt(10);
+                    int humanMaleH = baseH + randH1 + randH2;
+                    characterHeight.setText(String.valueOf(humanMaleH));
+                } else {
+                    int baseH = 59;
+                    int randH1 = ranAge.nextInt(10);
+                    int randH2 = ranAge.nextInt(10);
+                    int humanMaleH = baseH + randH1 + randH2;
+                    characterHeight.setText(String.valueOf(humanMaleH));
+                }
+            } else if (chosenRace.contains("Halfling")) {
+                if (characterGender.getValue() == "M") {
+                    int baseH = 32;
+                    int randH1 = ranAge.nextInt(8);
+                    int randH2 = ranAge.nextInt(8);
+                    int maleH = baseH + randH1 + randH2;
+                    characterHeight.setText(String.valueOf(maleH));
+                } else {
+                    int baseH = 30;
+                    int randH1 = ranAge.nextInt(8);
+                    int randH2 = ranAge.nextInt(8);
+                    int femaleH = baseH + randH1 + randH2;
+                    characterHeight.setText(String.valueOf(femaleH));
+                }
+            } else if (chosenRace.contains("Half-Elf")) {
+                if (characterGender.getValue() == "M") {
+                    int baseH = 60;
+                    int randH1 = ranAge.nextInt(6);
+                    int randH2 = ranAge.nextInt(6);
+                    int maleH = baseH + randH1 + randH2;
+                    characterHeight.setText(String.valueOf(maleH));
+                } else {
+                    int baseH = 58;
+                    int randH1 = ranAge.nextInt(6);
+                    int randH2 = ranAge.nextInt(6);
+                    int femaleH = baseH + randH1 + randH2;
+                    characterHeight.setText(String.valueOf(femaleH));
+                }
+            } else if (chosenRace.contains("Elf")) {
+                if (characterGender.getValue() == "M") {
+                    int baseH = 55;
+                    int randH1 = ranAge.nextInt(10);
+                    int maleH = baseH + randH1;
+                    characterHeight.setText(String.valueOf(maleH));
+                } else {
+                    int baseH = 50;
+                    int randH1 = ranAge.nextInt(10);
+                    int femaleH = baseH + randH1;
+                    characterHeight.setText(String.valueOf(femaleH));
+                }
+            } else if (chosenRace.contains("Gnome")) {
+                if (characterGender.getValue() == "M") {
+                    int baseH = 38;
+                    int randH1 = ranAge.nextInt(6);
+
+                    int maleH = baseH + randH1;
+                    characterHeight.setText(String.valueOf(maleH));
+                } else {
+                    int baseH = 36;
+                    int randH1 = ranAge.nextInt(6);
+                    int femaleH = baseH + randH1;
+                    characterHeight.setText(String.valueOf(femaleH));
+                }
+            } else if (chosenRace.contains("Dwarf")) {
+                if (characterGender.getValue() == "M") {
+                    int baseH = 43;
+                    int randH1 = ranAge.nextInt(10);
+                    int maleH = baseH + randH1;
+                    characterHeight.setText(String.valueOf(maleH));
+                } else {
+                    int baseH = 41;
+                    int randH1 = ranAge.nextInt(10);
+                    int femaleH = baseH + randH1;
+                    characterHeight.setText(String.valueOf(femaleH));
+                }
+            }
+        }
+        thiefSkillGenerator(Integer.parseInt(dexterityStat.getText()));
+    }
+
     public void statGenerator(ActionEvent event) {
 
         Random rand = new Random();
@@ -626,7 +1394,7 @@ public class DnD extends Application {
         return Integer.toString(rollTotal);
     }
     public void thiefSkillGenerator(int dexInput) {
-
+        String chosenRace = characterRace.getValue().toString();
         // int dexNum=Integer.parseInt(dexterityStat.getText());
         int dexNum = dexInput;
         if (dexNum < 9) {
@@ -639,159 +1407,558 @@ public class DnD extends Application {
             climbW.setText("0%");
             readL.setText("0%");
         } else if (dexNum == 9) {
-            pickP.setText("0%");
-            openL.setText("0%");
-            fRTraps.setText("-5%");
-            moveS.setText("-10%");
-            hideS.setText("-5%");
-            detectN.setText("15%");
-            climbW.setText("60%");
-            readL.setText("0%");
+            if (chosenRace.equals("Halfling")) {
+                pickP.setText("5%");
+                openL.setText("5%");
+                fRTraps.setText("0%");
+                moveS.setText("0%");
+                hideS.setText("10%");
+                detectN.setText("20%");
+                climbW.setText("45%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Half-Elf")) {
+                pickP.setText("10%");
+                openL.setText("0%");
+                fRTraps.setText("-5%");
+                moveS.setText("-10%");
+                hideS.setText("0%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Elf")) {
+                pickP.setText("5%");
+                openL.setText("-5%");
+                fRTraps.setText("-5%");
+                moveS.setText("-5%");
+                hideS.setText("5%");
+                detectN.setText("20%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Gnome")) {
+                pickP.setText("0%");
+                openL.setText("5%");
+                fRTraps.setText("5%");
+                moveS.setText("-5%");
+                hideS.setText("0%");
+                detectN.setText("25%");
+                climbW.setText("45%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Dwarf")) {
+                pickP.setText("0%");
+                openL.setText("10%");
+                fRTraps.setText("10%");
+                moveS.setText("-10%");
+                hideS.setText("-5%");
+                detectN.setText("15%");
+                climbW.setText("50%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Human")) {
+                pickP.setText("0%");
+                openL.setText("0%");
+                fRTraps.setText("-5%");
+                moveS.setText("-10%");
+                hideS.setText("-5%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
         } else if (dexNum == 10) {
-            pickP.setText("5%");
-            openL.setText("5%");
-            fRTraps.setText("-5%");
-            moveS.setText("-5%");
-            hideS.setText("0%");
-            detectN.setText("15%");
-            climbW.setText("60%");
-            readL.setText("0%");
+            if (chosenRace.equals("Halfling")) {
+                pickP.setText("10%");
+                openL.setText("10%");
+                fRTraps.setText("0%");
+                moveS.setText("5%");
+                hideS.setText("15%");
+                detectN.setText("20%");
+                climbW.setText("45%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Half-Elf")) {
+                pickP.setText("15%");
+                openL.setText("5%");
+                fRTraps.setText("-5%");
+                moveS.setText("-5%");
+                hideS.setText("5%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Elf")) {
+                pickP.setText("10%");
+                openL.setText("0%");
+                fRTraps.setText("-5%");
+                moveS.setText("0%");
+                hideS.setText("10%");
+                detectN.setText("20%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Gnome")) {
+                pickP.setText("5%");
+                openL.setText("10%");
+                fRTraps.setText("5%");
+                moveS.setText("0%");
+                hideS.setText("5%");
+                detectN.setText("25%");
+                climbW.setText("45%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Dwarf")) {
+                pickP.setText("5%");
+                openL.setText("15%");
+                fRTraps.setText("10%");
+                moveS.setText("-5%");
+                hideS.setText("0%");
+                detectN.setText("15%");
+                climbW.setText("50%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Human")) {
+                pickP.setText("5%");
+                openL.setText("5%");
+                fRTraps.setText("-5%");
+                moveS.setText("-5%");
+                hideS.setText("0%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
         } else if (dexNum == 11) {
-            pickP.setText("10%");
-            openL.setText("10%");
-            fRTraps.setText("0%");
-            moveS.setText("0%");
-            hideS.setText("5%");
-            detectN.setText("15%");
-            climbW.setText("60%");
-            readL.setText("0%");
+            if (chosenRace.equals("Halfling")) {
+                pickP.setText("15%");
+                openL.setText("15%");
+                fRTraps.setText("5%");
+                moveS.setText("10%");
+                hideS.setText("20%");
+                detectN.setText("20%");
+                climbW.setText("45%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Half-Elf")) {
+                pickP.setText("20%");
+                openL.setText("10%");
+                fRTraps.setText("0%");
+                moveS.setText("0%");
+                hideS.setText("10%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Elf")) {
+                pickP.setText("15%");
+                openL.setText("5%");
+                fRTraps.setText("0%");
+                moveS.setText("5%");
+                hideS.setText("15%");
+                detectN.setText("20%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Gnome")) {
+                pickP.setText("10%");
+                openL.setText("15%");
+                fRTraps.setText("10%");
+                moveS.setText("5%");
+                hideS.setText("10%");
+                detectN.setText("25%");
+                climbW.setText("45%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Dwarf")) {
+                pickP.setText("10%");
+                openL.setText("20%");
+                fRTraps.setText("15%");
+                moveS.setText("0%");
+                hideS.setText("5%");
+                detectN.setText("15%");
+                climbW.setText("50%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Human")) {
+                pickP.setText("10%");
+                openL.setText("10%");
+                fRTraps.setText("0%");
+                moveS.setText("0%");
+                hideS.setText("5%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
         } else if (dexNum == 12) {
-            pickP.setText("15%");
-            openL.setText("10%");
-            fRTraps.setText("5%");
-            moveS.setText("5%");
-            hideS.setText("5%");
-            detectN.setText("15%");
-            climbW.setText("60%");
-            readL.setText("0%");
+            if (chosenRace.equals("Halfling")) {
+                pickP.setText("20%");
+                openL.setText("15%");
+                fRTraps.setText("10%");
+                moveS.setText("15%");
+                hideS.setText("20%");
+                detectN.setText("20%");
+                climbW.setText("45%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Half-Elf")) {
+                pickP.setText("25%");
+                openL.setText("10%");
+                fRTraps.setText("5%");
+                moveS.setText("5%");
+                hideS.setText("10%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Elf")) {
+                pickP.setText("20%");
+                openL.setText("5%");
+                fRTraps.setText("5%");
+                moveS.setText("10%");
+                hideS.setText("15%");
+                detectN.setText("20%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Gnome")) {
+                pickP.setText("15%");
+                openL.setText("15%");
+                fRTraps.setText("15%");
+                moveS.setText("10%");
+                hideS.setText("10%");
+                detectN.setText("25%");
+                climbW.setText("45%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Dwarf")) {
+                pickP.setText("15%");
+                openL.setText("20%");
+                fRTraps.setText("20%");
+                moveS.setText("5%");
+                hideS.setText("5%");
+                detectN.setText("15%");
+                climbW.setText("50%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Human")) {
+
+                pickP.setText("15%");
+                openL.setText("10%");
+                fRTraps.setText("5%");
+                moveS.setText("5%");
+                hideS.setText("5%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
         } else if (dexNum >= 13 && dexNum <= 15) {
-            pickP.setText("15%");
-            openL.setText("10%");
-            fRTraps.setText("5%");
-            moveS.setText("10%");
-            hideS.setText("5%");
-            detectN.setText("15%");
-            climbW.setText("60%");
-            readL.setText("0%");
-
+            if (chosenRace.equals("Halfling")) {
+                pickP.setText("20%");
+                openL.setText("15%");
+                fRTraps.setText("10%");
+                moveS.setText("20%");
+                hideS.setText("20%");
+                detectN.setText("20%");
+                climbW.setText("45%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Half-Elf")) {
+                pickP.setText("25%");
+                openL.setText("10%");
+                fRTraps.setText("5%");
+                moveS.setText("10%");
+                hideS.setText("10%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Elf")) {
+                pickP.setText("20%");
+                openL.setText("5%");
+                fRTraps.setText("5%");
+                moveS.setText("15%");
+                hideS.setText("15%");
+                detectN.setText("20%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Gnome")) {
+                pickP.setText("15%");
+                openL.setText("15%");
+                fRTraps.setText("15%");
+                moveS.setText("15%");
+                hideS.setText("10%");
+                detectN.setText("25%");
+                climbW.setText("45%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Dwarf")) {
+                pickP.setText("15%");
+                openL.setText("20%");
+                fRTraps.setText("20%");
+                moveS.setText("10%");
+                hideS.setText("5%");
+                detectN.setText("15%");
+                climbW.setText("50%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Human")) {
+                pickP.setText("15%");
+                openL.setText("10%");
+                fRTraps.setText("5%");
+                moveS.setText("10%");
+                hideS.setText("5%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
         } else if (dexNum == 16) {
-            pickP.setText("15%");
-            openL.setText("15%");
-            fRTraps.setText("5%");
-            moveS.setText("10%");
-            hideS.setText("5%");
-            detectN.setText("15%");
-            climbW.setText("60%");
-            readL.setText("0%");
+            if (chosenRace.equals("Halfling")) {
+                pickP.setText("20%");
+                openL.setText("20%");
+                fRTraps.setText("10%");
+                moveS.setText("20%");
+                hideS.setText("20%");
+                detectN.setText("20%");
+                climbW.setText("45%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Half-Elf")) {
+                pickP.setText("25%");
+                openL.setText("15%");
+                fRTraps.setText("5%");
+                moveS.setText("10%");
+                hideS.setText("10%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Elf")) {
+                pickP.setText("20%");
+                openL.setText("10%");
+                fRTraps.setText("5%");
+                moveS.setText("15%");
+                hideS.setText("15%");
+                detectN.setText("20%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Gnome")) {
+                pickP.setText("15%");
+                openL.setText("20%");
+                fRTraps.setText("15%");
+                moveS.setText("15%");
+                hideS.setText("10%");
+                detectN.setText("25%");
+                climbW.setText("45%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Dwarf")) {
+                pickP.setText("15%");
+                openL.setText("25%");
+                fRTraps.setText("20%");
+                moveS.setText("10%");
+                hideS.setText("5%");
+                detectN.setText("15%");
+                climbW.setText("50%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Human")) {
+                pickP.setText("15%");
+                openL.setText("15%");
+                fRTraps.setText("5%");
+                moveS.setText("10%");
+                hideS.setText("5%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
         } else if (dexNum == 17) {
-            pickP.setText("20%");
-            openL.setText("25%");
-            fRTraps.setText("5%");
-            moveS.setText("15%");
-            hideS.setText("10%");
-            detectN.setText("15%");
-            climbW.setText("60%");
-            readL.setText("0%");
+            if (chosenRace.equals("Halfling")) {
+                pickP.setText("25%");
+                openL.setText("30%");
+                fRTraps.setText("10%");
+                moveS.setText("25%");
+                hideS.setText("25%");
+                detectN.setText("20%");
+                climbW.setText("45%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Half-Elf")) {
+                pickP.setText("30%");
+                openL.setText("25%");
+                fRTraps.setText("5%");
+                moveS.setText("15%");
+                hideS.setText("15%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Elf")) {
+                pickP.setText("25%");
+                openL.setText("20%");
+                fRTraps.setText("5%");
+                moveS.setText("20%");
+                hideS.setText("20%");
+                detectN.setText("20%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Gnome")) {
+                pickP.setText("20%");
+                openL.setText("30%");
+                fRTraps.setText("15%");
+                moveS.setText("20%");
+                hideS.setText("15%");
+                detectN.setText("25%");
+                climbW.setText("45%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Dwarf")) {
+                pickP.setText("20%");
+                openL.setText("35%");
+                fRTraps.setText("20%");
+                moveS.setText("15%");
+                hideS.setText("10%");
+                detectN.setText("15%");
+                climbW.setText("50%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Human")) {
+                pickP.setText("20%");
+                openL.setText("25%");
+                fRTraps.setText("5%");
+                moveS.setText("15%");
+                hideS.setText("10%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
         } else if (dexNum == 18) {
-            pickP.setText("30%");
-            openL.setText("40%");
-            fRTraps.setText("10%");
-            moveS.setText("25%");
-            hideS.setText("20%");
-            detectN.setText("15%");
-            climbW.setText("60%");
-            readL.setText("0%");
+            if (chosenRace.equals("Halfling")) {
+                pickP.setText("35%");
+                openL.setText("45%");
+                fRTraps.setText("15%");
+                moveS.setText("35%");
+                hideS.setText("35%");
+                detectN.setText("20%");
+                climbW.setText("45%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Half-Elf")) {
+                pickP.setText("40%");
+                openL.setText("40%");
+                fRTraps.setText("10%");
+                moveS.setText("25%");
+                hideS.setText("25%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Elf")) {
+                pickP.setText("35%");
+                openL.setText("35%");
+                fRTraps.setText("10%");
+                moveS.setText("30%");
+                hideS.setText("30%");
+                detectN.setText("20%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Gnome")) {
+                pickP.setText("30%");
+                openL.setText("45%");
+                fRTraps.setText("20%");
+                moveS.setText("30%");
+                hideS.setText("25%");
+                detectN.setText("25%");
+                climbW.setText("45%");
+                readL.setText("0%");
+            }
+            if (chosenRace.equals("Dwarf")) {
+                pickP.setText("30%");
+                openL.setText("50%");
+                fRTraps.setText("25%");
+                moveS.setText("25%");
+                hideS.setText("20%");
+                detectN.setText("15%");
+                climbW.setText("50%");
+                readL.setText("-5%");
+            }
+            if (chosenRace.equals("Human")) {
+                pickP.setText("30%");
+                openL.setText("40%");
+                fRTraps.setText("10%");
+                moveS.setText("25%");
+                hideS.setText("20%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
+            }
         } else if (dexNum == 19) {
-            pickP.setText("45%");
-            openL.setText("60%");
-            fRTraps.setText("20%");
-            moveS.setText("40%");
-            hideS.setText("35%");
-            detectN.setText("15%");
-            climbW.setText("60%");
-            readL.setText("0%");
-        }
-
-    }
-
-    public String characterRaceStats(String listItem) {
-        String chosenRace = characterRace.getValue().toString();
-        String needed = "uhh";
-        // String chosenRace = event.getSource().toString();
-        String chosenGender = characterGender.getValue().toString();
-        if (chosenRace.contains("Human")) {
-            if (chosenGender.contains("M")) {
-                characterHeight.setText("60");
-                characterWeight.setText("140");
-
-            } else {
-                characterHeight.setText("59");
-                characterWeight.setText("100");
+            if (chosenRace.equals("Halfling")) {
+                pickP.setText("50%");
+                openL.setText("65%");
+                fRTraps.setText("25%");
+                moveS.setText("50%");
+                hideS.setText("50%");
+                detectN.setText("20%");
+                climbW.setText("45%");
+                readL.setText("-5%");
             }
-
-        } else if (chosenRace.contains("Halfling")) {
-            if (chosenGender.contains("M")) {
-                characterHeight.setText("32");
-                characterWeight.setText("52");
-
-            } else {
-                characterHeight.setText("30");
-                characterWeight.setText("48");
+            if (chosenRace.equals("Half-Elf")) {
+                pickP.setText("55%");
+                openL.setText("60%");
+                fRTraps.setText("20%");
+                moveS.setText("40%");
+                hideS.setText("40%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
             }
-            // int strengthTemp = Integer.parseInt(strengthStat.toString());
-            //  int newStrength = strengthTemp +=1;
-            // String bruh = Integer.toString(newStrength);
-            //  strengthStat.setText(bruh);
-        } else if (chosenRace.contains("Half-Elf")) {
-            if (chosenGender.contains("M")) {
-                characterHeight.setText("60");
-                characterWeight.setText("110");
-
-            } else {
-                characterHeight.setText("58");
-                characterWeight.setText("85");
+            if (chosenRace.equals("Elf")) {
+                pickP.setText("50%");
+                openL.setText("55%");
+                fRTraps.setText("20%");
+                moveS.setText("45%");
+                hideS.setText("45%");
+                detectN.setText("20%");
+                climbW.setText("60%");
+                readL.setText("0%");
             }
-        } else if (chosenRace.contains("Elf")) {
-            if (chosenGender.contains("M")) {
-                characterHeight.setText("55");
-                characterWeight.setText("90");
-
-            } else {
-                characterHeight.setText("50");
-                characterWeight.setText("70");
+            if (chosenRace.equals("Gnome")) {
+                pickP.setText("45%");
+                openL.setText("65%");
+                fRTraps.setText("30%");
+                moveS.setText("45%");
+                hideS.setText("40%");
+                detectN.setText("25%");
+                climbW.setText("45%");
+                readL.setText("0%");
             }
-        } else if (chosenRace.contains("Gnome")) {
-            if (chosenGender.contains("M")) {
-                characterHeight.setText("38");
-                characterWeight.setText("72");
-
-            } else {
-                characterHeight.setText("36");
-                characterWeight.setText("68");
+            if (chosenRace.equals("Dwarf")) {
+                pickP.setText("45%");
+                openL.setText("70%");
+                fRTraps.setText("35%");
+                moveS.setText("40%");
+                hideS.setText("35%");
+                detectN.setText("15%");
+                climbW.setText("50%");
+                readL.setText("-5%");
             }
-        } else if (chosenRace.contains("Dwarf")) {
-            if (chosenGender.contains("M")) {
-                characterHeight.setText("43");
-                characterWeight.setText("130");
-
-            } else {
-                characterHeight.setText("41");
-                characterWeight.setText("105");
+            if (chosenRace.equals("Human")) {
+                pickP.setText("45%");
+                openL.setText("60%");
+                fRTraps.setText("20%");
+                moveS.setText("40%");
+                hideS.setText("35%");
+                detectN.setText("15%");
+                climbW.setText("60%");
+                readL.setText("0%");
             }
         }
-
-        return needed;
     }
+    
     
     public void numCalc(ActionEvent event){
         System.out.println("Roll");
