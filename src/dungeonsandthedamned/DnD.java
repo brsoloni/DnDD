@@ -512,7 +512,7 @@ public class DnD extends Application {
         Group userDice =  new Group(diceSize, diceInput, userInput, calcOutput, output, miscOutline, miscText);
         
         //TACH0
-        Text thacoText = new Text("THACH0");
+        Text thacoText = new Text("THAC0");
         thacoText.setLayoutX(425);
         thacoText.setLayoutY(438);
         
@@ -1974,7 +1974,7 @@ public class DnD extends Application {
         }     
     }
     
-    public void thacoCalc(String groupType){
+    public void thacoCalc(ActionEvent event){
         String groupT = (String) characterClass.getValue().toString();
         int userLevel = Integer.parseInt(characterLevel.getText());
         if(groupT.contains("Cleric")|| groupT.contains("Mage")){
