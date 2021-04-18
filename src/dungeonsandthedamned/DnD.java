@@ -90,6 +90,7 @@ public class DnD extends Application {
         inventoryArmor.getItems().addAll("Leather", "Padded", "Studded Leather",
                 "Ring mail","Brigandine","Scale Mail","Hide","Chain mail",
                 "Split Mail","Banded Mail","Bronze Plate","Plate Mail","Field Plate","Full Plate");
+        inventoryArmor.setValue("No Armor");
         inventoryArmor.setPrefWidth(125);
         inventoryArmor.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
@@ -99,6 +100,7 @@ public class DnD extends Application {
         Text inventoryShieldLabel = new Text(390, 148, "Shield");
         inventoryShield = new ComboBox();
         inventoryShield.getItems().addAll("Yes", "No");
+        inventoryShield.setValue("No");
         inventoryShield.setPrefWidth(70);
         inventoryShield.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
@@ -106,7 +108,7 @@ public class DnD extends Application {
         inventoryShield.setLayoutY(130);
 
         Text platinumCurrencyLabel = new Text(525, 148, "Platinum");
-        platinumCurrency = new TextField("");
+        platinumCurrency = new TextField("0");
         platinumCurrency.setPrefWidth(65);
         platinumCurrency.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
@@ -114,7 +116,7 @@ public class DnD extends Application {
         platinumCurrency.setLayoutY(130);
 
         Text goldCurrencyLabel = new Text(665, 148, "Gold");
-        goldCurrency = new TextField("");
+        goldCurrency = new TextField("0");
         goldCurrency.setPrefWidth(65);
         goldCurrency.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
@@ -122,7 +124,7 @@ public class DnD extends Application {
         goldCurrency.setLayoutY(130);
 
         Text silverCurrencyLabel = new Text(785, 148, "Silver");
-        silverCurrency = new TextField("");
+        silverCurrency = new TextField("0");
         silverCurrency.setPrefWidth(65);
         silverCurrency.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
@@ -130,14 +132,14 @@ public class DnD extends Application {
         silverCurrency.setLayoutY(130);
 
         Text copperCurrencyLabel = new Text(910, 148, "Copper");
-        copperCurrency = new TextField("");
+        copperCurrency = new TextField("0");
         copperCurrency.setPrefWidth(65);
         copperCurrency.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
         copperCurrency.setLayoutX(965);
         copperCurrency.setLayoutY(130);
 
-        otherInventory = new TextArea("");
+        otherInventory = new TextArea("Miscellaneous Inventory");
         otherInventory.setPrefWidth(885);
         otherInventory.setPrefHeight(190);
         // pickP.setStyle("-fx-font-size: 28");
@@ -246,7 +248,7 @@ public class DnD extends Application {
         theifStats.setFill(null);
 
         Text pickPLabel = new Text(1085, 73, "Pick Pockets");
-        pickP = new TextField("");
+        pickP = new TextField("0%");
         pickP.setPrefWidth(35);
         pickP.setPrefHeight(5);
         // pickP.setStyle("-fx-font-size: 28");
@@ -256,7 +258,7 @@ public class DnD extends Application {
         Group pickPGroup = new Group(pickPLabel, pickP);
 
         Text openLLabel = new Text(1085, 123, "Open Locks");
-        openL = new TextField("");
+        openL = new TextField("0%");
         openL.setPrefWidth(35);
         openL.setPrefHeight(5);
         //  openL.setStyle("-fx-font-size: 28");
@@ -266,7 +268,7 @@ public class DnD extends Application {
         Group openLGroup = new Group(openLLabel, openL);
 
         Text fRTrapsLabel = new Text(1085, 173, "Find/Remove Traps");
-        fRTraps = new TextField("");
+        fRTraps = new TextField("0%");
         fRTraps.setPrefWidth(35);
         fRTraps.setPrefHeight(5);
         //  fRTraps.setStyle("-fx-font-size: 28");
@@ -276,7 +278,7 @@ public class DnD extends Application {
         Group fRTrapsGroup = new Group(fRTrapsLabel, fRTraps);
 
         Text moveSLabel = new Text(1085, 223, "Move Silently");
-        moveS = new TextField("");
+        moveS = new TextField("0%");
         moveS.setPrefWidth(35);
         moveS.setPrefHeight(5);
         //  moveS.setStyle("-fx-font-size: 28");
@@ -286,7 +288,7 @@ public class DnD extends Application {
         Group moveSGroup = new Group(moveSLabel, moveS);
 
         Text hideSLabel = new Text(1250, 73, "Hide in Shadows");
-        hideS = new TextField("");
+        hideS = new TextField("0%");
         hideS.setPrefWidth(35);
         hideS.setPrefHeight(5);
         //  moveS.setStyle("-fx-font-size: 28");
@@ -296,7 +298,7 @@ public class DnD extends Application {
         Group hideSGroup = new Group(hideSLabel, hideS);
 
         Text detectNPLabel = new Text(1250, 123, "Detect Noise");
-        detectN = new TextField("");
+        detectN = new TextField("0%");
         detectN.setPrefWidth(35);
         detectN.setPrefHeight(5);
         //  moveS.setStyle("-fx-font-size: 28");
@@ -306,7 +308,7 @@ public class DnD extends Application {
         Group detectNGroup = new Group(detectNPLabel, detectN);
 
         Text climbWLabel = new Text(1250, 173, "Climb Walls");
-        climbW = new TextField("");
+        climbW = new TextField("0%");
         climbW.setPrefWidth(35);
         climbW.setPrefHeight(5);
         //  moveS.setStyle("-fx-font-size: 28");
@@ -316,7 +318,7 @@ public class DnD extends Application {
         Group climbWGroup = new Group(climbWLabel, climbW);
 
         Text rLLabel = new Text(1250, 223, "Read Languages");
-        readL = new TextField("");
+        readL = new TextField("0%");
         readL.setPrefWidth(35);
         readL.setPrefHeight(5);
         //  moveS.setStyle("-fx-font-size: 28");
@@ -549,15 +551,28 @@ public class DnD extends Application {
 
     }
     
-    public void save(ActionEvent event)
-    {
-        
+ public void save(ActionEvent event)
+    {  
         Character new1 = new Character();
         new1.setName("BOB");
-        new1.save();
-    
-        
+        new1.setStr(Integer.parseInt(strengthStat.getText()));
+        new1.setDex(Integer.parseInt(dexterityStat.getText()));
+        new1.setCon(Integer.parseInt(constitutionStat.getText()));
+        new1.setInt(Integer.parseInt(intellectStat.getText()));
+        new1.setWis(Integer.parseInt(wisdomStat.getText()));
+        new1.setChr(Integer.parseInt(intellectStat.getText()));
+        new1.setPer(Integer.parseInt(perceptionStat.getText()));
+        // new1.setSpercent();
+        new1.setPlatnum(Integer.parseInt(platinumCurrency.getText()));
+        new1.setGold(Integer.parseInt(goldCurrency.getText()));
+        new1.setSilver(Integer.parseInt(silverCurrency.getText()));
+        new1.setCopper(Integer.parseInt(copperCurrency.getText()));
+        new1.setLevel(Integer.parseInt(characterLevel.getText()));
+        new1.setInventory(otherInventory.getText().toString());
+      //  new1.setInventory("inventory");
+        new1.save();      
     }
+
     public void randomCharacter(ActionEvent event) {
         String chosenGender = characterGender.getValue().toString();
         String chosenRace = characterRace.getValue().toString();
