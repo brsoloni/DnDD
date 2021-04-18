@@ -87,7 +87,7 @@ public class DnD extends Application {
 
         Text inventoryArmorLabel = new Text(155, 148, "Current Armor");
         inventoryArmor = new ComboBox();
-        inventoryArmor.getItems().addAll("Leather", "Padded", "Studded Leather",
+        inventoryArmor.getItems().addAll("No Armor", "Leather", "Padded", "Studded Leather",
                 "Ring mail","Brigandine","Scale Mail","Hide","Chain mail",
                 "Split Mail","Banded Mail","Bronze Plate","Plate Mail","Field Plate","Full Plate");
         inventoryArmor.setValue("No Armor");
