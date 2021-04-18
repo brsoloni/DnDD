@@ -556,7 +556,7 @@ public class DnD extends Application {
     
         
     }
-    ublic void randomCharacter(ActionEvent event) {
+    public void randomCharacter(ActionEvent event) {
         String chosenGender = characterGender.getValue().toString();
         String chosenRace = characterRace.getValue().toString();
         String chosenClass = characterClass.getValue().toString();
