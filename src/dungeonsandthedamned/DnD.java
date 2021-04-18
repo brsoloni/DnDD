@@ -459,70 +459,72 @@ public class DnD extends Application {
         perceptionDie.setLayoutY(865);
         perceptionDie.setOnAction(this::statGenerator);
 
-        allDie = new Button("Roleall");
+         allDie = new Button("Role all");
         allDie.setId("allrole");
-        allDie.setLayoutX(62);
-        allDie.setLayoutY(900);
+        allDie.setLayoutX(605);
+        allDie.setLayoutY(420);
         allDie.setOnAction(this::statGenerator);
         
         save = new Button("Save");
         save.setId("Save");
-        save.setLayoutX(62);
-        save.setLayoutY(927);
+        save.setLayoutX(675);
+        save.setLayoutY(420);
         save.setOnAction(this::save);
         
         //Miscellenour Box
-        Rectangle miscOutline = new Rectangle(140, 385, 915, 275);
+        Rectangle miscOutline = new Rectangle(140, 390, 915, 75);
         miscOutline.setStroke(Color.BLACK);
         miscOutline.setFill(null);
         
         Text miscText = new Text("Miscellaneous");
         miscText.setLayoutX(580);
-        miscText.setLayoutY(400);
+        miscText.setLayoutY(410);
         
         //User Random Number
         
-        Text diceSize = new Text("Size of Dice");
+        Text diceSize = new Text("Size of Die");
         diceSize.setX(155);
-        diceSize.setY(420);
+        diceSize.setY(438);
         
         Text output = new Text("Output");
-        output.setX(230);
-        output.setY(420);
+        output.setX(325);
+        output.setY(438);
         
         userInput = new TextField("0");
-        userInput.setLayoutX(155);
-        userInput.setLayoutY(425);
-        userInput.setPrefWidth(60);
+        userInput.setLayoutX(218);
+        userInput.setLayoutY(420);
+        userInput.setPrefWidth(42);
+        userInput.setPrefHeight(5);
 
         calcOutput = new TextField("");
-        calcOutput.setLayoutX(230);
-        calcOutput.setLayoutY(425);
-        calcOutput.setPrefWidth(40);
+        calcOutput.setLayoutX(368);
+        calcOutput.setLayoutY(420);
+        calcOutput.setPrefWidth(42);
+        calcOutput.setPrefHeight(5);
         calcOutput.setEditable(false);
         
         Button diceInput = new Button("Roll");
-        diceInput.setLayoutX(155);
-        diceInput.setLayoutY(455);
+        diceInput.setLayoutX(275);
+        diceInput.setLayoutY(420);
         
         diceInput.setOnAction(this::numCalc);
         
         Group userDice =  new Group(diceSize, diceInput, userInput, calcOutput, output, miscOutline, miscText);
         
         //TACH0
-        Text thacoText = new Text("TACH0");
-        thacoText.setLayoutX(300);
-        thacoText.setLayoutY(420);
+        Text thacoText = new Text("THACH0");
+        thacoText.setLayoutX(425);
+        thacoText.setLayoutY(438);
         
         thacoBox = new TextField("");
-        thacoBox.setLayoutX(300);
+        thacoBox.setLayoutX(480);
         thacoBox.setLayoutY(420);
         thacoBox.setPrefWidth(40);
         thacoBox.setEditable(false);
         
         Button thacoBut = new Button("Update");
-        thacoBut.setLayoutX(300);
-        thacoBut.setLayoutY(455);
+        thacoBut.setLayoutX(535);
+        thacoBut.setLayoutY(420);
         thacoBut.setOnAction(this::thacoCalc);
         
 //        thacoBox.setOnAction(event -> {
