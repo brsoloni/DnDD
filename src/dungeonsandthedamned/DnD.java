@@ -1374,6 +1374,8 @@ public class DnD extends Application {
         } else if ((event.getSource()).toString().contains("allrole")) {
             strengthStat.setText(total());
             dexterityStat.setText(total());
+            int dexnum = Integer.parseInt(dexterityStat.getText());
+            thiefSkillGenerator(dexnum);
             constitutionStat.setText(total());
             intellectStat.setText(total());
             wisdomStat.setText(total());
