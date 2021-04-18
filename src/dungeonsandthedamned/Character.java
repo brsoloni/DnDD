@@ -19,7 +19,7 @@ public class Character {
     int PID=0;
     int[] stats= new int[7];
     int Spercent;
-    int gold,silver,copper,platnum;
+    int gold,silver,copper,platnum,level;
     String name, inventory;
     public Character()
     {
@@ -75,7 +75,7 @@ public class Character {
     {
         return stats[5];
     }
-    public int gerPer()
+    public int getPer()
     {
         return stats[6];
     }
@@ -98,6 +98,10 @@ public class Character {
     public int getPlatnum()
     {
         return platnum;
+    }
+    public int getLevel()
+    {
+        return level;
     }
     public String getInventory()
     {
@@ -132,6 +136,10 @@ public class Character {
     {
         stats[5]=q;
     }
+    public void setPer(int q)
+    {
+        stats[6]=q;
+    }
     public void setSpercent(int q)
     {
         Spercent=q;
@@ -151,6 +159,10 @@ public class Character {
     public void setPlatnum(int q)
     {
         platnum=q;
+    }
+    public void setLevel(int q)
+    {
+        level = q;
     }
     public void setInventory(String q)
     {
@@ -195,6 +207,9 @@ public class Character {
        write.write(copper);
        write.write("\r\n");
        
+       write.write(level);
+       write.write("\r\n");
+       
        write.write(inventory);
        write.write("\r\n");
        
@@ -206,8 +221,32 @@ public class Character {
     }
     public void Load()
     {
-        //FileReader saves =new FileReader("Character1.txt");
+        try
+        {
+            FileReader saves =new FileReader("Character1.txt");
+            BufferedReader buff = new BufferedReader(saves);
+            name = buff.readLine();
+            stats[0] = buff.read();
+            stats[1] = buff.read();
+            stats[2] = buff.read();
+            stats[3] = buff.read();
+            stats[4] = buff.read();
+            stats[5] = buff.read();
+            Spercent = buff.read();
+            platnum  = buff.read();
+            gold  = buff.read();
+            silver  = buff.read();
+            copper  = buff.read();
+            inventory  = buff.readLine();
+            
+        }
+        
+        catch(IOException e){}
        
+    }
+    public void whipe()
+    {
+        
     }
             
             
