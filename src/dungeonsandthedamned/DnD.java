@@ -498,7 +498,7 @@ public class DnD extends Application {
         userInput.setPrefWidth(42);
         userInput.setPrefHeight(5);
 
-        calcOutput = new TextField("");
+        calcOutput = new TextField("0");
         calcOutput.setLayoutX(368);
         calcOutput.setLayoutY(420);
         calcOutput.setPrefWidth(42);
@@ -518,7 +518,7 @@ public class DnD extends Application {
         thacoText.setLayoutX(425);
         thacoText.setLayoutY(438);
         
-        thacoBox = new TextField("");
+        thacoBox = new TextField("0");
         thacoBox.setLayoutX(480);
         thacoBox.setLayoutY(420);
         thacoBox.setPrefWidth(40);
