@@ -522,11 +522,16 @@ public class DnD extends Application {
         thacoBox.setPrefWidth(40);
         thacoBox.setEditable(false);
         
+        Button thacoBut = new Button("Update");
+        thacoBut.setLayoutX(300);
+        thacoBut.setLayoutY(455);
+        thacoBut.setOnAction(this::thacoCalc);
+        
 //        thacoBox.setOnAction(event -> {
 //        thacoCalc(characterClass.getValue().toString);
 //        });
         
-        Group thaco = new Group(thacoText, thacoBox);
+        Group thaco = new Group(thacoText, thacoBox, thacoBut);
         
  
         
@@ -803,7 +808,6 @@ public class DnD extends Application {
     public void thacoCalc(String groupType){
         String groupT = (String) characterClass.getValue().toString();
         int userLevel = Integer.parseInt(characterLevel.getText());
-        int level = 1;
         if(groupT.contains("Cleric")|| groupT.contains("Mage")){
             switch(userLevel){
                 case 1:
@@ -843,7 +847,7 @@ public class DnD extends Application {
             }
         } 
         else if(groupT.contains("Thief")|| groupT.contains("Bard")){
-            switch(level){
+            switch(userLevel){
                 case 1:
                 case 2:
                     thacoBox.setText("20");
@@ -888,10 +892,11 @@ public class DnD extends Application {
  
         }
         else if(groupT.contains("Fighter") || groupT.contains("Paladin") || groupT.contains("Ranger")){
-            thacoBox.setText("");
+            int warriorNum = 21 - userLevel;
+            thacoBox.setText(Integer.toString(warriorNum));
         }
         else if(groupT.contains("Mage")){
-            switch(level){
+            switch(userLevel){
                 case 1:
                 case 2:
                 case 3:
