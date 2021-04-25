@@ -573,14 +573,18 @@ public class DnD extends Application {
         primaryStage.setTitle("Dungeons and Damned Calculations");
         primaryStage.setScene(scene);
         primaryStage.show();
+        load();
 
     }
     
 public void Save(ActionEvent event)
     {  
-       
+        save();
+    }
+    public void save()
+    {
         Character new1 = new Character();
-       int x=1;
+        int x=1;
         if (saveSlots.getValue().toString().equals("Save1")){x=1;}
         else if(saveSlots.getValue().toString().equals("Save2")){x=2;}
         else if(saveSlots.getValue().toString().equals("Save3")){x=3;}
@@ -646,8 +650,8 @@ public void Save(ActionEvent event)
         else{}
         new1.Load(x);
         
-       // if(new1.getSex().equals("Sex")||new1.getSex().equals("M")||new1.getSex().equals("F"))
-      //  {
+//        if(new1.getShield().equals("Yes")||new1.getShield().equals("No"))
+  //      {
             characterName.setText(new1.getName());
             strengthStat.setText(new1.getStr());
             dexterityStat.setText(new1.getDex());
@@ -679,17 +683,30 @@ public void Save(ActionEvent event)
             climbW.setText(new1.getClimb());
             readL.setText(new1.getRead());
             otherInventory.setText(new1.getInventory());
-       // }
-       // else{reset();}
+  //      }
+  //      else{reset();}
         
     }
     public void Whipe(ActionEvent event)
     {
         whipe();
     }
-    public void reset()
-    {    
-        characterName.setText("Character Name");
+    public void whipe()
+    {
+        Character new1 = new Character();
+        int x=1;
+        if (saveSlots.getValue().toString().equals("Save1")){x=1;}
+        else if(saveSlots.getValue().toString().equals("Save2")){x=2;}
+        else if(saveSlots.getValue().toString().equals("Save3")){x=3;}
+        else if(saveSlots.getValue().toString().equals("Save4")){x=4;}
+        else if(saveSlots.getValue().toString().equals("Save5")){x=5;}
+        else if(saveSlots.getValue().toString().equals("Save6")){x=6;}
+        else if(saveSlots.getValue().toString().equals("Save7")){x=7;}
+        else if(saveSlots.getValue().toString().equals("Save8")){x=8;}
+        else if(saveSlots.getValue().toString().equals("Save9")){x=9;}
+        else if(saveSlots.getValue().toString().equals("Save10")){x=10;}
+        new1.whipe(x);
+         characterName.setText("Character Name");
         strengthStat.setText("0");
         dexterityStat.setText("0");
         constitutionStat.setText("0");
@@ -720,23 +737,8 @@ public void Save(ActionEvent event)
         climbW.setText("0%");
         readL.setText("0%");
         otherInventory.setText("Miscellaneous Inventory");
-    }
-    public void whipe()
-    {
-        Character new1 = new Character();
-        int x=1;
-        if (saveSlots.getValue().toString().equals("Save1")){x=1;}
-        else if(saveSlots.getValue().toString().equals("Save2")){x=2;}
-        else if(saveSlots.getValue().toString().equals("Save3")){x=3;}
-        else if(saveSlots.getValue().toString().equals("Save4")){x=4;}
-        else if(saveSlots.getValue().toString().equals("Save5")){x=5;}
-        else if(saveSlots.getValue().toString().equals("Save6")){x=6;}
-        else if(saveSlots.getValue().toString().equals("Save7")){x=7;}
-        else if(saveSlots.getValue().toString().equals("Save8")){x=8;}
-        else if(saveSlots.getValue().toString().equals("Save9")){x=9;}
-        else if(saveSlots.getValue().toString().equals("Save10")){x=10;}
-        new1.whipe(x);
-        reset();
+        save();
+        load();
     }
 
 
