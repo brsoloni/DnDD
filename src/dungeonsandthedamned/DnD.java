@@ -583,7 +583,8 @@ public class DnD extends Application {
             
            c= "Characters/Character"+Integer.toString(i);
            Path C= Paths.get(c);
-           if(Files.exists(C) && !Files.isDirectory(C)) 
+           if(Files.exists(C)) {}   
+           else
            {
         if (i==1){saveSlots.setValue("Save1");whipe();}
         else if(i==2){saveSlots.setValue("Save2");whipe();}
@@ -595,7 +596,7 @@ public class DnD extends Application {
         else if(i==8){saveSlots.setValue("Save8");whipe();}
         else if(i==9){saveSlots.setValue("Save9");whipe();}
         else if(i==10){saveSlots.setValue("Save10");whipe();}
-          }     
+           }
         }
 
   
