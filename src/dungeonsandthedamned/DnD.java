@@ -67,8 +67,11 @@ public class DnD extends Application {
     private TextField perceptionStat;
     private Button perceptionDie;
     
-    private Button allDie;
+ private Button allDie;
     private Button save;
+    private Button load;
+    private Button delete;
+    private ComboBox saveSlots;
     
     private TextField userInput;
     private TextField calcOutput;
