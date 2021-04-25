@@ -16,11 +16,13 @@ import java.util.Scanner;
  */
 public class Character {
     static int ID=0;
-    int PID=0;
+    int inventoryAmount;
     String[] stats= new String[7];
     String gold,silver,copper,platnum,level,Spercent
-            ,age,height,weight,race,Class,armor,name,inventory,sex,
+            ,age,height,weight,race,Class,armor,name,sex,
             pick,open,traps,move,hide,detect,climb,read,shield;
+    
+    String[] inventory;
     public Character()
     {
         
@@ -146,9 +148,13 @@ public class Character {
     {
         return read;
     }
-    public String getInventory()
+    public String[] getInventory()
     {
         return inventory;
+    }
+    public int getInventoryAmount()
+    {
+        return inventoryAmount;
     }
     //set funtions
     public void setName(String q)
@@ -272,9 +278,10 @@ public class Character {
     {
         read=q;
     }
-    public void setInventory(String q)
+    public void setInventory(String[] q,int x)
     {
         inventory=q;
+        inventoryAmount=x;
     }
     public void save(int x)
     {
@@ -379,10 +386,15 @@ public class Character {
        
        write.write(read);
        write.write("\r\n");
-
-       write.write(inventory);
+       
+       write.write(inventoryAmount);
        write.write("\r\n");
        
+       for(int i=0;i<inventoryAmount;i++)
+       {
+       write.write(inventory[i]);
+       write.write("\r\n");
+       }
        write.close();
        
        }
@@ -436,7 +448,11 @@ public class Character {
             detect  = buff.readLine();
             climb  = buff.readLine();
             read = buff.readLine();
-            inventory  = buff.readLine();
+            inventoryAmount=Integer.parseInt(buff.readLine());
+            for(int i=0;i<inventoryAmount;i++)
+            {
+            inventory[i]  = buff.readLine();
+            }
             saves.close();
             buff.close();
         }

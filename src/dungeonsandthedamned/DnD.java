@@ -609,6 +609,8 @@ public void Save(ActionEvent event)
     {
         Character new1 = new Character();
         int x=1;
+        String[] inventory= otherInventory.getText().split("\n");
+        int amount = otherInventory.getPrefRowCount();
         if (saveSlots.getValue().toString().equals("Save1")){x=1;}
         else if(saveSlots.getValue().toString().equals("Save2")){x=2;}
         else if(saveSlots.getValue().toString().equals("Save3")){x=3;}
@@ -649,7 +651,7 @@ public void Save(ActionEvent event)
         new1.setDetect(detectN.getText());
         new1.setClimb(climbW.getText());
         new1.setRead(readL.getText());
-        new1.setInventory(otherInventory.getText());
+        new1.setInventory(inventory,amount);
         //new1.setInventory("inventory");
        new1.save(x);      
     }
@@ -706,7 +708,14 @@ public void Save(ActionEvent event)
             detectN.setText(new1.getDetect());
             climbW.setText(new1.getClimb());
             readL.setText(new1.getRead());
-            otherInventory.setText(new1.getInventory());
+            int z = new1.getInventoryAmount();
+            String[] inventory = new1.getInventory();
+            String trueInventory="";
+            for(int i=0;i<z;i++)
+            {
+                trueInventory+=inventory[i]+"\n";
+            }
+            otherInventory.setText(trueInventory);
   //      }
   //      else{reset();}
         
