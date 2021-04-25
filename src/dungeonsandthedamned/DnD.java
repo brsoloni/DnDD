@@ -467,11 +467,33 @@ public class DnD extends Application {
         allDie.setLayoutY(420);
         allDie.setOnAction(this::statGenerator);
         
-        save = new Button("Save");
+               save = new Button("Save");
         save.setId("Save");
         save.setLayoutX(675);
         save.setLayoutY(420);
-        save.setOnAction(this::save);
+        save.setOnAction(this::Save);
+        
+        load= new Button("Load Last Save");
+        load.setId("Load");
+        load.setLayoutX(730);
+        load.setLayoutY(420);
+        load.setOnAction(this::Load);
+        
+        delete= new Button("Delete");
+        delete.setId("Delete");
+        delete.setLayoutX(850);
+        delete.setLayoutY(420);
+        delete.setOnAction(this::Whipe);
+        
+        saveSlots = new ComboBox();
+        saveSlots.getItems().addAll("Save1","Save2","Save3","Save4","Save5","Save6","Save7","Save8","Save9","Save10");
+        saveSlots.setValue("Save1");
+        saveSlots.setPrefWidth(100);
+        saveSlots.setPrefHeight(5);
+        saveSlots.setLayoutX(915);
+        saveSlots.setLayoutY(420);
+        saveSlots.setOnAction(e -> load());
+      
         
         //Miscellenour Box
         Rectangle miscOutline = new Rectangle(140, 390, 915, 75);
@@ -551,27 +573,169 @@ public class DnD extends Application {
 
     }
     
- public void save(ActionEvent event)
+public void Save(ActionEvent event)
     {  
+       
         Character new1 = new Character();
-        new1.setName("BOB");
-        new1.setStr(Integer.parseInt(strengthStat.getText()));
-        new1.setDex(Integer.parseInt(dexterityStat.getText()));
-        new1.setCon(Integer.parseInt(constitutionStat.getText()));
-        new1.setInt(Integer.parseInt(intellectStat.getText()));
-        new1.setWis(Integer.parseInt(wisdomStat.getText()));
-        new1.setChr(Integer.parseInt(intellectStat.getText()));
-        new1.setPer(Integer.parseInt(perceptionStat.getText()));
+       int x=1;
+        if (saveSlots.getValue().toString().equals("Save1")){x=1;}
+        else if(saveSlots.getValue().toString().equals("Save2")){x=2;}
+        else if(saveSlots.getValue().toString().equals("Save3")){x=3;}
+        else if(saveSlots.getValue().toString().equals("Save4")){x=4;}
+        else if(saveSlots.getValue().toString().equals("Save5")){x=5;}
+        else if(saveSlots.getValue().toString().equals("Save6")){x=6;}
+        else if(saveSlots.getValue().toString().equals("Save7")){x=7;}
+        else if(saveSlots.getValue().toString().equals("Save8")){x=8;}
+        else if(saveSlots.getValue().toString().equals("Save9")){x=9;}
+        else if(saveSlots.getValue().toString().equals("Save10")){x=10;}
+        new1.setName(characterName.getText());
+        new1.setStr(strengthStat.getText());
+        new1.setDex(dexterityStat.getText());
+        new1.setCon(constitutionStat.getText());
+        new1.setInt(intellectStat.getText());
+        new1.setWis(wisdomStat.getText());
+        new1.setChr(charismaStat.getText());
+        new1.setPer(perceptionStat.getText());
         // new1.setSpercent();
-        new1.setPlatnum(Integer.parseInt(platinumCurrency.getText()));
-        new1.setGold(Integer.parseInt(goldCurrency.getText()));
-        new1.setSilver(Integer.parseInt(silverCurrency.getText()));
-        new1.setCopper(Integer.parseInt(copperCurrency.getText()));
-        new1.setLevel(Integer.parseInt(characterLevel.getText()));
-        new1.setInventory(otherInventory.getText().toString());
-      //  new1.setInventory("inventory");
-        new1.save();      
+        new1.setPlatnum(platinumCurrency.getText());
+        new1.setGold(goldCurrency.getText());
+        new1.setSilver(silverCurrency.getText());
+        new1.setCopper(copperCurrency.getText());
+        new1.setLevel(characterLevel.getText());
+        new1.setAge(characterAge.getText());
+        new1.setHeight(characterHeight.getText());
+        new1.setWeight(characterWeight.getText());
+        new1.setRace(characterRace.getValue().toString());
+        new1.setclass(characterClass.getValue().toString());
+        new1.setSex(characterGender.getValue().toString());
+        new1.setArmor(inventoryArmor.getValue().toString());
+        new1.setShield(inventoryShield.getValue().toString());
+        new1.setPick(pickP.getText());
+        new1.setOpen(openL.getText());
+        new1.setTraps(fRTraps.getText());
+        new1.setMove(moveS.getText());
+        new1.setHide(hideS.getText());
+        new1.setDetect(detectN.getText());
+        new1.setClimb(climbW.getText());
+        new1.setRead(readL.getText());
+        new1.setInventory(otherInventory.getText());
+        //new1.setInventory("inventory");
+       new1.save(x);      
     }
+    public void Load(ActionEvent event)
+    {
+        load();
+    }
+    public void load()
+    {
+        Character new1 = new Character();
+        int x=1;
+        if (saveSlots.getValue().toString().equals("Save1")){x=1;}
+        else if(saveSlots.getValue().toString().equals("Save2")){x=2;}
+        else if(saveSlots.getValue().toString().equals("Save3")){x=3;}
+        else if(saveSlots.getValue().toString().equals("Save4")){x=4;}
+        else if(saveSlots.getValue().toString().equals("Save5")){x=5;}
+        else if(saveSlots.getValue().toString().equals("Save6")){x=6;}
+        else if(saveSlots.getValue().toString().equals("Save7")){x=7;}
+        else if(saveSlots.getValue().toString().equals("Save8")){x=8;}
+        else if(saveSlots.getValue().toString().equals("Save9")){x=9;}
+        else if(saveSlots.getValue().toString().equals("Save10")){x=10;}
+        else{}
+        new1.Load(x);
+        
+       // if(new1.getSex().equals("Sex")||new1.getSex().equals("M")||new1.getSex().equals("F"))
+      //  {
+            characterName.setText(new1.getName());
+            strengthStat.setText(new1.getStr());
+            dexterityStat.setText(new1.getDex());
+            constitutionStat.setText(new1.getCon());
+            intellectStat.setText(new1.getInt());
+            wisdomStat.setText(new1.getWis());
+            charismaStat.setText(new1.getChr());
+            perceptionStat.setText(new1.getPer());
+         // new1.setSpercent();
+            platinumCurrency.setText(new1.getPlatnum());
+            goldCurrency.setText(new1.getGold());
+            silverCurrency.setText(new1.getSilver());
+            copperCurrency.setText(new1.getCopper());
+            characterLevel.setText(new1.getLevel());
+            characterAge.setText(new1.getAge());
+            characterHeight.setText(new1.getHeight());
+            characterWeight.setText(new1.getWeight());
+            characterRace.setValue(new1.getRace());
+            characterClass.setValue(new1.getclass());
+            characterGender.setValue(new1.getSex());
+            inventoryArmor.setValue(new1.getArmor());
+            inventoryShield.setValue(new1.getShield());
+            pickP.setText(new1.getPick());
+            openL.setText(new1.getOpen());
+            fRTraps.setText(new1.getTraps());
+            moveS.setText(new1.getMove());
+            hideS.setText(new1.getHide());
+            detectN.setText(new1.getDetect());
+            climbW.setText(new1.getClimb());
+            readL.setText(new1.getRead());
+            otherInventory.setText(new1.getInventory());
+       // }
+       // else{reset();}
+        
+    }
+    public void Whipe(ActionEvent event)
+    {
+        whipe();
+    }
+    public void reset()
+    {    
+        characterName.setText("Character Name");
+        strengthStat.setText("0");
+        dexterityStat.setText("0");
+        constitutionStat.setText("0");
+        intellectStat.setText("0");
+        wisdomStat.setText("0");
+        charismaStat.setText("0");
+        perceptionStat.setText("0");
+         // new1.setSpercent();
+        platinumCurrency.setText("0");
+        goldCurrency.setText("0");
+        silverCurrency.setText("0");
+        copperCurrency.setText("0");
+        characterLevel.setText("0");
+        characterAge.setText("0");
+        characterHeight.setText("0");
+        characterWeight.setText("0");
+        characterRace.setValue("Race");
+        characterClass.setValue("Class");
+        characterGender.setValue("Sex");
+        inventoryArmor.setValue("No Armor");
+        inventoryShield.setValue("No");
+        pickP.setText("0%");
+        openL.setText("0%");
+        fRTraps.setText("0%");
+        moveS.setText("0%");
+        hideS.setText("0%");
+        detectN.setText("0%");
+        climbW.setText("0%");
+        readL.setText("0%");
+        otherInventory.setText("Miscellaneous Inventory");
+    }
+    public void whipe()
+    {
+        Character new1 = new Character();
+        int x=1;
+        if (saveSlots.getValue().toString().equals("Save1")){x=1;}
+        else if(saveSlots.getValue().toString().equals("Save2")){x=2;}
+        else if(saveSlots.getValue().toString().equals("Save3")){x=3;}
+        else if(saveSlots.getValue().toString().equals("Save4")){x=4;}
+        else if(saveSlots.getValue().toString().equals("Save5")){x=5;}
+        else if(saveSlots.getValue().toString().equals("Save6")){x=6;}
+        else if(saveSlots.getValue().toString().equals("Save7")){x=7;}
+        else if(saveSlots.getValue().toString().equals("Save8")){x=8;}
+        else if(saveSlots.getValue().toString().equals("Save9")){x=9;}
+        else if(saveSlots.getValue().toString().equals("Save10")){x=10;}
+        new1.whipe(x);
+        reset();
+    }
+
 
     public void randomCharacter(ActionEvent event) {
         String chosenGender = characterGender.getValue().toString();
