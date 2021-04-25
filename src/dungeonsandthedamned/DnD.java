@@ -574,7 +574,6 @@ public class DnD extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         load();
-
     }
     
 public void Save(ActionEvent event)

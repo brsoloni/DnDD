@@ -278,17 +278,17 @@ public class Character {
     }
     public void save(int x)
     {
-       String txt="Character1.txt";
-       if(x==1){txt="Character1.txt";}
-       else if(x==2){txt="Character2.txt";}
-       else if(x==3){txt="Character3.txt";}
-       else if(x==4){txt="Character4.txt";}
-       else if(x==5){txt="Character5.txt";}
-       else if(x==6){txt="Character6.txt";}
-       else if(x==7){txt="Character7.txt";}
-       else if(x==8){txt="Character8.txt";}
-       else if(x==9){txt="Character9.txt";}
-       else if(x==10){txt="Character10.txt";}
+       String txt="Characters/Character1.txt";
+       if(x==1){txt="Characters/Character1.txt";}
+       else if(x==2){txt="Characters/Character2.txt";}
+       else if(x==3){txt="Characters/Character3.txt";}
+       else if(x==4){txt="Characters/Character4.txt";}
+       else if(x==5){txt="Characters/Character5.txt";}
+       else if(x==6){txt="Characters/Character6.txt";}
+       else if(x==7){txt="Characters/Character7.txt";}
+       else if(x==8){txt="Characters/Character8.txt";}
+       else if(x==9){txt="Characters/Character9.txt";}
+       else if(x==10){txt="Characters/Character10.txt";}
        whipe(x);//to clear file before writing over it 
        try{ FileWriter write =new FileWriter(txt,true);
        write.write(name);
@@ -393,17 +393,17 @@ public class Character {
     {
         try
         {
-       String txt="Character1.txt";
-       if(x==1){txt="Character1.txt";}
-       else if(x==2){txt="Character2.txt";}
-       else if(x==3){txt="Character3.txt";}
-       else if(x==4){txt="Character4.txt";}
-       else if(x==5){txt="Character5.txt";}
-       else if(x==6){txt="Character6.txt";}
-       else if(x==7){txt="Character7.txt";}
-       else if(x==8){txt="Character8.txt";}
-       else if(x==9){txt="Character9.txt";}
-       else if(x==10){txt="Character10.txt";}
+       String txt="Characters/Character1.txt";
+       if(x==1){txt="Characters/Character1.txt";}
+       else if(x==2){txt="Characters/Character2.txt";}
+       else if(x==3){txt="Characters/Character3.txt";}
+       else if(x==4){txt="Characters/Character4.txt";}
+       else if(x==5){txt="Characters/Character5.txt";}
+       else if(x==6){txt="Characters/Character6.txt";}
+       else if(x==7){txt="Characters/Character7.txt";}
+       else if(x==8){txt="Characters/Character8.txt";}
+       else if(x==9){txt="Characters/Character9.txt";}
+       else if(x==10){txt="Characters/Character10.txt";}
             FileReader saves =new FileReader(txt);
             BufferedReader buff = new BufferedReader(saves);
             name = buff.readLine();
