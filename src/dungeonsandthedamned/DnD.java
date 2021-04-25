@@ -17,6 +17,9 @@ import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 /**
@@ -574,6 +577,28 @@ public class DnD extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         load();
+        String c;
+        for (int i=1;i<=10;i++)
+        {
+            
+           c= "Characters/Character"+Integer.toString(i);
+           Path C= Paths.get(c);
+           if(Files.exists(C) && !Files.isDirectory(C)) 
+           {
+        if (i==1){saveSlots.setValue("Save1");whipe();}
+        else if(i==2){saveSlots.setValue("Save2");whipe();}
+        else if(i==3){saveSlots.setValue("Save3");whipe();}
+        else if(i==4){saveSlots.setValue("Save4");whipe();}
+        else if(i==5){saveSlots.setValue("Save5");whipe();}
+        else if(i==6){saveSlots.setValue("Save6");whipe();}
+        else if(i==7){saveSlots.setValue("Save7");whipe();}
+        else if(i==8){saveSlots.setValue("Save8");whipe();}
+        else if(i==9){saveSlots.setValue("Save9");whipe();}
+        else if(i==10){saveSlots.setValue("Save10");whipe();}
+          }     
+        }
+
+  
     }
     
 public void Save(ActionEvent event)
